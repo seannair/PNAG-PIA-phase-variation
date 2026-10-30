@@ -1,0 +1,4 @@
+# regenerable QA artifacts
+_frames/
+_shots/
+*.log
