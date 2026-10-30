@@ -11,7 +11,8 @@ const VIEWS = [
   ['phone-por', 390, 844],
   ['phone-land',844, 390]
 ];
-const TS = [4, 12, 17.5, 23, 29.5, 35.5];
+/* extra timestamps can be passed as CLI args: node _shots.cjs 0 1.15 2.6 */
+const TS = [...new Set([4, 12, 17.5, 23, 29.5, 35.5, ...process.argv.slice(2).map(parseFloat)].filter(Number.isFinite))].sort((a,b)=>a-b);
 
 (async () => {
   let browser;

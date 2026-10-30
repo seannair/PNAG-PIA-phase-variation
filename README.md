@@ -77,7 +77,8 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
 | `index.html` | The animation (self-contained: markup + styles + timeline engine) |
 | `is256_ica_loop.mp4` | Full 36-s loop rendered at 1920×1080/30 fps |
 | `_capture.mjs` | MP4 frame-capture harness (Playwright, drives `window.__IS256.render`) — see "Rendering the MP4" |
-| `_shots.cjs`, `_selftest.cjs` | Playwright QA harnesses (responsive screenshots, self-test run) — not needed to view the animation |
+| `_shots.cjs`, `_selftest.cjs` | Playwright QA harnesses (responsive screenshots — extra timestamps as CLI args; self-test run) — not needed to view the animation |
+| `_syntax.cjs` | Parse-only check of the inline `<script>` (`node _syntax.cjs`) |
 | `HANDOFF.md` | Session handoff doc: design coordinates, verification order, biology fact sheet |
 
 ## Iteration log
@@ -86,6 +87,12 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   top-left; Gram-positive cell rebuilt — thick labelled membrane ring + single fine cross-hatched peptidoglycan
   wall band with leader-line labels; unexplained white ✕s on the GlcNAc beads removed; sound effects added.
   Git history (one commit per round) allows reverting to any earlier state.
+- **Round 2 (2026-10-30):** stepwise in-cell PIA/PNAG synthesis — during chapter 1 (ON), three conveyor cycles
+  make polymerization visible: a UDP-GlcNAc pulse, the chain sliding as a new unit pops in at the growing end,
+  then the oldest unit travelling down through the IcaC channel past IcaB (halo flash = deacetylation) to join
+  the coat. Chapter 4 regrowth now staggers bead pop-ins left→right instead of scaling the whole chain. Seam-safe
+  by construction: quiescent windows show the exact all-settled state, so frame(0) ≡ frame(36) still holds.
+  `is256_ica_loop.mp4` intentionally **not** re-rendered this round — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
