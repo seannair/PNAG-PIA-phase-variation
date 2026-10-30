@@ -15,6 +15,7 @@
   #ui > *{ pointer-events:auto; }
   button{ font-family:inherit; border:none; cursor:pointer; color:#fff; background:linear-gradient(135deg,#3b82f6,#2563eb); padding:9px 16px; min-height:40px; border-radius:11px; font-size:14px; font-weight:600; box-shadow:0 2px 8px rgba(37,99,235,.35); transition:filter .15s, transform .1s; }
   button:hover{ filter:brightness(1.08); } button:active{ transform:scale(.96); }
+  #sndBtn{ background:#fff; color:#475569; border:1px solid #c7d4ea; box-shadow:none; min-width:46px; font-size:15px; }
   #dots{ display:flex; gap:7px; align-items:center; }
   .dot{ width:13px; height:13px; border-radius:50%; background:#c7d4ea; border:none; cursor:pointer; padding:0; transition:.2s; box-shadow:none; min-height:0; }
   .dot.active{ background:#f59e0b; transform:scale(1.28); }
@@ -33,6 +34,10 @@
   <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fbff"/><stop offset="1" stop-color="#e9f1fc"/></linearGradient>
   <radialGradient id="cellGrad" cx=".38" cy=".32" r=".95"><stop offset="0" stop-color="#ffe3b3"/><stop offset=".55" stop-color="#ffb066"/><stop offset="1" stop-color="#f97e2c"/></radialGradient>
   <radialGradient id="miniGrad" cx=".38" cy=".34" r=".9"><stop offset="0" stop-color="#ffe0ad"/><stop offset="1" stop-color="#fb9a45"/></radialGradient>
+  <!-- fine cross-hatch fill for the Gram-positive peptidoglycan wall -->
+  <pattern id="pgHatch" width="7" height="7" patternUnits="userSpaceOnUse">
+    <path d="M0,0 l7,7 M7,0 l-7,7" stroke="#c2410c" stroke-width=".9"/>
+  </pattern>
 </defs>
 
 <rect x="-2000" y="-2000" width="7600" height="4800" fill="url(#bgGrad)"/>
@@ -41,6 +46,7 @@
 <g id="titleG">
   <text x="800" y="44" text-anchor="middle" font-size="31" font-weight="800" fill="#1e293b" letter-spacing=".2">IS256 phase variation in the <tspan font-style="italic">ica</tspan> locus</text>
   <text x="800" y="71" text-anchor="middle" font-size="16.5" fill="#64748b"><tspan font-style="italic">Staphylococcus aureus</tspan> — the insertion sequence that jumps in and out of a biofilm gene</text>
+  <text x="26" y="98" font-size="13" fill="#a3aec0" font-family="'Segoe Script','Brush Script MT','Comic Sans MS',cursive">© Sean P Nair</text>
 </g>
 
 <!-- ================= LEGEND ================= -->
@@ -125,10 +131,22 @@
   <circle id="coat1" cx="560" cy="570" r="204" fill="none" stroke="#fbbf24" stroke-width="9" stroke-dasharray="3 26" stroke-linecap="round"/>
   <circle id="coat2" cx="560" cy="570" r="182" fill="none" stroke="#fde68a" stroke-width="6" stroke-dasharray="2.5 24" stroke-linecap="round"/>
 
-  <!-- coccus -->
-  <circle cx="560" cy="570" r="190" fill="url(#cellGrad)" stroke="#fdba74" stroke-width="10"/>
-  <circle cx="560" cy="570" r="168" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="3"/>
+  <!-- coccus (Gram-positive: single thick peptidoglycan wall, no outer membrane) -->
+  <circle cx="560" cy="570" r="190" fill="url(#cellGrad)" stroke="#fdba74" stroke-width="2"/>
+  <circle cx="560" cy="570" r="181" fill="none" stroke="#f59e0b" stroke-opacity=".3" stroke-width="16"/>
+  <circle cx="560" cy="570" r="181" fill="none" stroke="url(#pgHatch)" stroke-width="16"/>
+  <circle id="membrane" cx="560" cy="570" r="168" fill="none" stroke="#ffffff" stroke-opacity=".95" stroke-width="9"/>
   <ellipse cx="492" cy="498" rx="46" ry="26" fill="#fff" opacity=".28" transform="rotate(-28 492 498)"/>
+
+  <!-- wall labels (leader lines to the left side of the cell) -->
+  <g id="wallLblG" font-size="13" font-weight="700">
+    <text x="366" y="514" text-anchor="end" fill="#9a3412">peptidoglycan wall (thick — Gram+)</text>
+    <line x1="370" y1="512" x2="384" y2="522" stroke="#9a3412" stroke-width="1.5"/>
+    <circle cx="386" cy="523" r="2.6" fill="#9a3412"/>
+    <text x="366" y="700" text-anchor="end" fill="#334155">cell membrane</text>
+    <line x1="370" y1="696" x2="430" y2="680" stroke="#334155" stroke-width="1.5"/>
+    <circle cx="432" cy="679" r="2.6" fill="#334155"/>
+  </g>
 
   <!-- membrane machinery -->
   <g id="udpG">
@@ -189,7 +207,7 @@
   <rect x="820" y="806" width="720" height="92" rx="18" fill="#cbd5e1"/>
   <line x1="846" y1="836" x2="1514" y2="836" stroke="#b4c2d6" stroke-width="2.5" stroke-dasharray="14 10"/>
   <line x1="846" y1="864" x2="1514" y2="864" stroke="#b4c2d6" stroke-width="2.5" stroke-dasharray="14 10"/>
-  <text x="950" y="796" text-anchor="middle" font-size="14" fill="#64748b">device / catheter surface</text>
+  <text x="950" y="796" text-anchor="middle" font-size="14" font-weight="700" fill="#334155">surface</text>
 
   <!-- biofilm matrix -->
   <g id="matrixG">
@@ -232,6 +250,7 @@
   <div id="dots"></div>
   <div id="speedWrap"><span>Speed</span><input id="spd" type="range" min="0.5" max="2" step="0.1" value="1"/><span id="spdVal">1×</span></div>
   <button id="resetBtn" type="button">↺ Restart</button>
+  <button id="sndBtn" type="button" title="Sound off — tap the canvas to enable, click here to toggle">🔇</button>
 </div>
 <div id="prog"><div id="progBar"></div></div>
 
@@ -272,7 +291,7 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
 (function buildLegend(){
   const items = [
     ["#4d7cfe","ica operon genes"],["#8b5cf6","IcaR repressor"],["#f97362","IS256 element"],
-    ["#22d3ee","TSD (8-bp duplication)"],["#fbbf24","PNAG polymer"],["#cbd5e1","device surface"]
+    ["#22d3ee","TSD (8-bp duplication)"],["#fbbf24","PNAG polymer"],["#cbd5e1","Surface"]
   ];
   const g = $("legendG"); let x=980, y=106;
   for(let i=0;i<items.length;i++){
@@ -292,7 +311,6 @@ const BEAD_XS = [596,612,628,644,660,676,692,708];
   const g=$("beadsG"); let h="";
   for(let i=0;i<8;i++){
     h += `<circle id="b${i}" cx="${BEAD_XS[i]}" cy="560" r="7.5" fill="#f59e0b"/>`;
-    if(i%3===2) h += `<path d="M${BEAD_XS[i]-4},556 l8,8 M${BEAD_XS[i]+4},556 l-8,8" stroke="#fff" stroke-width="1.6"/>`;
   }
   g.innerHTML=h;
 })();
@@ -453,6 +471,36 @@ function runSelfTest(){
   return {ok, fails};
 }
 
+/* ---------- sound effects (Web Audio — synthesized, no files) ----------
+   Silent until the first user gesture arms it; never fires in render/test mode. */
+let AC=null, soundOn=false, sndArmed=false;
+const sndBtn=$("sndBtn");
+function ac(){ if(!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return AC; }
+function tone(f0,f1,dur,type,gain,when=0){
+  const c=ac(); if(!c||c.state!=="running") return;
+  const t0=c.currentTime+when, o=c.createOscillator(), g=c.createGain();
+  o.type=type; o.frequency.setValueAtTime(f0,t0);
+  if(f1) o.frequency.exponentialRampToValueAtTime(Math.max(30,f1),t0+dur);
+  g.gain.setValueAtTime(.0001,t0);
+  g.gain.exponentialRampToValueAtTime(gain,t0+.02);
+  g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+  o.connect(g).connect(c.destination); o.start(t0); o.stop(t0+dur+.05);
+}
+const SFX={
+  tick:    ()=>tone(880,620,.09,"triangle",.07),                       /* chapter change */
+  thud:    ()=>tone(130,52,.4,"sine",.18),                             /* IS256 lands in icaC */
+  chirp:   ()=>tone(300,950,.35,"sawtooth",.07),                       /* excision out of icaC */
+  chime:   ()=>{ tone(659,0,.5,"sine",.1); tone(988,0,.5,"sine",.06,.07); }, /* coat regrows */
+  fadeout: ()=>tone(420,150,.6,"sine",.09)                             /* biofilm falls apart */
+};
+function syncSndBtn(){ sndBtn.textContent=soundOn?"🔊":"🔇"; sndBtn.title=soundOn?"Mute sound effects":"Sound off — tap the canvas to enable, click here to toggle"; }
+if(!renderMode && !testMode){
+  const arm=()=>{ if(sndArmed) return; sndArmed=true; soundOn=true; syncSndBtn(); const c=ac(); if(c&&c.state==="suspended") c.resume(); };
+  window.addEventListener("pointerdown",arm);
+  window.addEventListener("keydown",arm);
+}
+sndBtn.addEventListener("click",e=>{ e.stopPropagation(); const c=ac(); if(c&&c.state==="suspended") c.resume(); soundOn=!soundOn; syncSndBtn(); });
+
 /* ---------- interaction / loop ---------- */
 let speed=1, last=null;
 const playBtn=$("playBtn"), dotsG=$("dots");
@@ -475,9 +523,20 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 let playing = !(renderMode || testMode) && seekT==null && !reduce;
 playBtn.textContent = playing?"⏸ Pause":"▶ Play";
 
-let curT = seekT!=null ? seekT : 0;
+let curT = seekT!=null ? seekT : 0, prevSnap=null;
 function frame(ts){
-  if(playing && last!=null){ curT=(curT+(ts-last)/1000*speed)%D; render(curT); syncUI(curT); }
+  if(playing && last!=null){
+    curT=(curT+(ts-last)/1000*speed)%D; render(curT); syncUI(curT);
+    const now={ch:S.chapter,inIca:!!S.is256.insideIcaC,coat:+S.coat.toFixed(3),bf:+S.biofilm.toFixed(3)};
+    if(soundOn && prevSnap){
+      if(now.ch!==prevSnap.ch) SFX.tick();
+      if(!prevSnap.inIca && now.inIca) SFX.thud();
+      else if(prevSnap.inIca && !now.inIca) SFX.chirp();
+      if(prevSnap.coat<.5 && now.coat>=.5) SFX.chime();
+      if(prevSnap.bf>.5 && now.bf<=.5) SFX.fadeout();
+    }
+    prevSnap=now;
+  } else { last=null; prevSnap=null; }
   last=ts; requestAnimationFrame(frame);
 }
 

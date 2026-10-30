@@ -11,8 +11,12 @@ viewBox 1600×900). A pre-rendered MP4 of the full loop is available as `is256_i
 ## Usage
 
 - **Open:** double-click `index.html` (or serve the folder). Autoplays; tap to play/pause.
-- **Interactive chrome** (bottom): play/pause, 4 chapter dots (jump to a phase), speed slider 0.5–2×, restart.
+- **Interactive chrome** (bottom): play/pause, 4 chapter dots (jump to a phase), speed slider 0.5–2×, restart, sound toggle.
   With `prefers-reduced-motion`, it starts paused.
+- **Sound effects:** five short synthesized cues mark the key events (chapter change, IS256 landing in *icaC*,
+  excision, PNAG coat regrowth, biofilm disassembly). Web Audio only — no files, still a single HTML file.
+  Sound arms on your first tap/click/keypress and can be muted with the 🔊/🔇 button; it is silent in
+  `?render=1` / `?test=1` modes (and therefore never affects MP4 capture).
 
 ### URL modes
 
@@ -75,6 +79,13 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
 | `_capture.mjs` | MP4 frame-capture harness (Playwright, drives `window.__IS256.render`) — see "Rendering the MP4" |
 | `_shots.cjs`, `_selftest.cjs` | Playwright QA harnesses (responsive screenshots, self-test run) — not needed to view the animation |
 | `HANDOFF.md` | Session handoff doc: design coordinates, verification order, biology fact sheet |
+
+## Iteration log
+
+- **Round 1 (2026-07-08):** device surface label simplified to "surface" (dark); small © Sean P Nair credit
+  top-left; Gram-positive cell rebuilt — thick labelled membrane ring + single fine cross-hatched peptidoglycan
+  wall band with leader-line labels; unexplained white ✕s on the GlcNAc beads removed; sound effects added.
+  Git history (one commit per round) allows reverting to any earlier state.
 
 ## Biology notes & references
 
