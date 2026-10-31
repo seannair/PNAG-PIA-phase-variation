@@ -38,8 +38,8 @@
   <pattern id="pgHatch" width="7" height="7" patternUnits="userSpaceOnUse">
     <path d="M0,0 l7,7 M7,0 l-7,7" stroke="#c2410c" stroke-width=".9"/>
   </pattern>
-  <!-- diffuse per-cell PNAG coat glow -->
-  <radialGradient id="coatGlow"><stop offset="0" stop-color="#6ee7b7" stop-opacity=".5"/><stop offset=".6" stop-color="#34d399" stop-opacity=".38"/><stop offset="1" stop-color="#34d399" stop-opacity="0"/></radialGradient>
+  <!-- per-cell PNAG coat glow — tight rim: the opaque cell covers the centre, so opacity peaks in the .55–.85 band that shows around each cell -->
+  <radialGradient id="coatGlow"><stop offset="0" stop-color="#6ee7b7" stop-opacity=".5"/><stop offset=".55" stop-color="#34d399" stop-opacity=".42"/><stop offset=".85" stop-color="#10b981" stop-opacity=".5"/><stop offset="1" stop-color="#10b981" stop-opacity=".12"/></radialGradient>
 </defs>
 
 <rect x="-2000" y="-2000" width="7600" height="4800" fill="url(#bgGrad)"/>
@@ -104,8 +104,8 @@
   </g>
 
   <!-- TSD hot-spot markers (static, never travel with the element): insertion site in icaC + home site on the genome -->
-  <rect id="tsdL" x="999" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
-  <rect id="tsdR" x="1380" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
+  <rect id="tsdL" x="999" y="200.5" width="9" height="9" rx="3" fill="#22d3ee"/>
+  <rect id="tsdR" x="1380" y="200.5" width="9" height="9" rx="3" fill="#22d3ee"/>
 
   <!-- transposase callout (chapter 2) -->
   <g id="tnpCallG">
