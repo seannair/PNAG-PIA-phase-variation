@@ -50,8 +50,10 @@ the MP4 loops seamlessly.
 2. **JUMP IN** — transposase *tnp256* cuts IS256 out of its home site (ghost left behind) and cut-and-paste
    integrates it into the icaC hot spot, duplicating 8 bp at each end (TSD). The gene is not replaced but
    **split**: two intact *icaC* fragments flank the inserted element — the icaC–IS256–icaC region is longer than
-   the original gene — and transcription is blocked, only short oligomers (<20 units), no export.
+   the original gene. Because *icaC* is the last gene of the operon there is no polar effect: transcription keeps
+   running and IcaA·D/IcaB are still made, but only short oligomers (<20 units) form — nothing gets exported.
 3. **OFF** — PNAG coat gone; cells are smooth and planktonic; biofilm disassembles — no adhesion to the device.
+   The operon stays transcribed (amber pill: "icaADBC still transcribed — only icaC lost"); the trap is at export.
 4. **JUMP OUT** — precise excision: IS256 leaves icaC carrying the duplicated 8-bp copies, restoring the exact
    original sequence. Operon refires; PNAG⁺ and biofilm return. Phase variation complete.
 
@@ -156,6 +158,7 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   (1) **TSD bars are now static hot-spot markers** — tsdL stays fixed at x=999 (icaC insertion site), opacity gated to ch1/ch2/early-ch3 only; tsdR moved to x=1380 (home centre), visible while IS256 is away. No transform ever applied — the bars no longer ride the element flight like a conveyor. Seam-safe: both invisible at t≈0 and t≈D.
   (2) **Per-cell diffuse PNAG halos replace the solid matrix blob** — removed `matrixG` (impossible pre-formed green ellipse). Each attached cell now has its own soft radial-gradient halo (`coatGlow`: #6ee7b7 → transparent) that blooms in with a staggered cascade as biofilm regrows, and swells on each peristaltic beat. No solid matrix before cells attach.
   (3) **Coat rings sync to phi and thicken like an overlay** — `coatDepth = 1 + 1.6·clamp(φ/3)` grows ring thickness from single-bead to multi-bead as the chain exports; dashoffsets are exact multiples of one bead pitch per φ unit, so coat beads advance in lockstep with the secreted strand (inner ring trails outer → sliding-overlay look). `NCOAT1=64`, `NCOAT2=56` integer bead counts keep the pattern seamless. Self-test passes; seam unchanged (frame(0)≡frame(D)). MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 10 (2026-10-31):** scientific fix flagged by user review of the OFF chapter ("do not remove IcaA and IcaD from the cell"). IS256 inserts in *icaC*, the **last** gene of the co-transcribed operon, so there is no polar effect: the IcaA·D transferase, UDP-GlcNAc supply and IcaB now stay visible in every chapter, and the mRNA line keeps flowing with no block ✕ — a new amber pill reads "icaADBC still transcribed — only icaC lost". Only IcaC export is blocked while IS256 is in situ (the membrane-channel ✕ remains), so short oligomers form but cannot be exported. Basis: Arciola et al. 2015 (PMC4322838) — IcaC externalizes the nascent polymer; Kiem et al. 2004 (PMC2816298); Ziebuhr et al. 1999. New `S.exportBlocked` state, self-test updated (t=17.5: in situ + export blocked + mRNA on) and passing; seam unchanged (frame(0)≡frame(D)). MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 

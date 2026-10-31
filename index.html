@@ -129,8 +129,8 @@
   </g>
   <text id="mrnaLblOn" x="520" y="272" text-anchor="middle" font-size="13.5" fill="#b45309"><tspan font-style="italic">icaADBC</tspan> mRNA → IcaA·D, IcaB, IcaC proteins</text>
   <g id="mrnaLblOffG">
-    <rect x="762" y="284" width="518" height="30" rx="15" fill="#fff1f2" stroke="#fecaca"/>
-    <text x="1021" y="305" text-anchor="middle" font-size="14.5" font-weight="700" fill="#dc2626">transcript blocked at the insertion — no functional IcaC</text>
+    <rect x="826" y="284" width="390" height="30" rx="15" fill="#fffbeb" stroke="#fde68a"/>
+    <text x="1021" y="305" text-anchor="middle" font-size="14.5" font-weight="700" fill="#b45309">icaADBC still transcribed — only icaC lost</text>
   </g>
 </g>
 
@@ -398,25 +398,23 @@ function render(t){
   const ex = ch===3 ? Math.min(seg(t,27.2,28), 1-seg(t,31.8,32.8)) : 0;
   setOp($("excCallG"), ex);
 
-  /* ----- mRNA flow ----- */
-  const on = ch===0 || (ch===1 && t<13.9) || (ch===3 && t>32.2);
-  const mOpFinal = ch===0 ? 1 : ch===1 ? (t<13.9?1:1-seg(t,13.9,15.1)) : ch===3 ? seg(t,32.2,33) : 0;
-  setOp($("mrnaH"), mOpFinal); setOp($("mrnaV"), mOpFinal*.96); setOp($("mRnaHead"), mOpFinal);
-  /* flowing dashes */
-  if(on){ const off = (t*10)%20; $("mrnaH").setAttribute("stroke-dasharray","12 8"); $("mrnaH").setAttribute("stroke-dashoffset", -off);
-          $("mrnaV").setAttribute("stroke-dasharray","12 8"); $("mrnaV").setAttribute("stroke-dashoffset", -off*1.5); }
-  else { $("mrnaH").removeAttribute("stroke-dasharray"); $("mrnaV").removeAttribute("stroke-dasharray"); }
+  /* ----- mRNA flow — transcribed in ALL chapters: IS256 sits in icaC, the LAST gene of the operon, so there is no
+     polar effect on icaA/icaD/icaB; the transcript keeps flowing and only IcaC function (export) is lost. ----- */
+  setOp($("mrnaH"), 1); setOp($("mrnaV"), .96); setOp($("mRnaHead"), 1);
+  const mOff = (t*10)%20;
+  $("mrnaH").setAttribute("stroke-dasharray","12 8"); $("mrnaH").setAttribute("stroke-dashoffset", -mOff);
+  $("mrnaV").setAttribute("stroke-dasharray","12 8"); $("mrnaV").setAttribute("stroke-dashoffset", -mOff*1.5);
 
-  const blk = (ch===1 && t>=13.9) || ch===2;
-  setOp($("mrnaX"), blk? .97:0);
-  setOp($("mrnaLblOn"), on? .95:0);
+  const blk = (ch===1 && t>=13.9) || ch===2 || (ch===3 && t<28.2);   // IS256 in situ → export blocked
+  setOp($("mrnaX"), 0);                                              // no ✕ on the transcript — it is never interrupted
+  setOp($("mrnaLblOn"), blk? 0:.95);
   setOp($("mrnaLblOffG"), blk? .98:0);
 
-  /* ----- cell machinery ----- */
-  const mach = ch===0 ? 1 : ch===1 ? (t<13.9?1:1-seg(t,13.9,15.1)) : ch===2 ? 0 : seg(t,32.2,33.2);
-  setOp($("transferG"), mach*.98); setOp($("udpG"), mach*.95);
-  setOp($("udpArrow"), mach*.9);   setOp($("udpHead"), mach*.9);
-  setOp($("icaBG"), mach*.97);
+  /* ----- cell machinery — visible in ALL chapters: IS256 lands in icaC (3′ end), so icaA/icaD/icaB keep being
+     transcribed and IcaA·D + IcaB stay up; only IcaC is lost, trapping short oligomers inside. ----- */
+  setOp($("transferG"), .98); setOp($("udpG"), .95);
+  setOp($("udpArrow"), .9);   setOp($("udpHead"), .9);
+  setOp($("icaBG"), .97);
 
   /* PNAG strand: steady rope flow threading through IcaC (peristaltic beats in ch0); the tail retracts to a trapped
      3-unit stub when the operon is off; regrows anchor-first in ch3. Settled state ≡ frame(0) → seam-safe. */
@@ -519,7 +517,7 @@ function render(t){
 
   S.t=t; S.chapter=ch;
   S.is256={x:ix,y:iy,insideIcaC:(ix>=1004&&ix<=1174),atHome:(ix>1370)}; // in-situ span at the split-icaC hot spot (IS256 box)
-  S.icaCBroken=broken; S.mRNAon=!!(mOpFinal>.4); S.coat=coat; S.biofilm=bf; S.planktonic=plank;
+  S.icaCBroken=broken; S.mRNAon=true; S.exportBlocked=blk; S.coat=coat; S.biofilm=bf; S.planktonic=plank;   // mRNA on in every chapter (no polar effect); export blocked only while IS256 is in situ
 }
 
 /* ---------- self-test (?test=1) ---------- */
@@ -536,7 +534,7 @@ function runSelfTest(){
     [7.5,s=>s.coat>.6 && s.biofilm>.8 && s.is256.atHome],
     [12, s=>!s.is256.atHome && Math.abs(s.is256.y-205)>40],          // in flight (arc apex)
     [14,  s=>s.chainLen>=NDOTS-3],                                   // rope still essentially full as IS256 lands (synthesis ran to the insertion)
-    [17.5,s=>s.is256.insideIcaC && s.icaCBroken && !s.mRNAon],
+    [17.5,s=>s.is256.insideIcaC && s.icaCBroken && s.exportBlocked && s.mRNAon],   // IS256 seated: export blocked but icaADBC still transcribed
     [23, s=>s.planktonic>.9 && s.biofilm<.05 && s.coat<.05 && s.icaCBroken],
     [31.6, s=>!s.is256.insideIcaC && !s.icaCBroken],                  // excised, gene restored
     [34.8,s=>s.mRNAon && s.coat>.5 && s.biofilm>.7 && s.is256.atHome]
@@ -544,10 +542,10 @@ function runSelfTest(){
   let ok=true; const fails=[];
   for(const [t,pred] of checks){ render(t); if(!pred(S)) {ok=false; fails.push(`t=${t}: state=${JSON.stringify(S)}`);} }
   /* seam: last frame ≈ first frame (visual state only) */
-  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2),chainLen:S.chainLen,exported:S.exported});
+  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,exportBlocked:S.exportBlocked,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2),chainLen:S.chainLen,exported:S.exported});
   render(35.98); const a=snap();
   render(0.02);   const b=snap();
-  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.broken!==b.broken||a.chainLen!==b.chainLen||a.exported!==b.exported){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
+  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.exportBlocked!==b.exportBlocked||a.broken!==b.broken||a.chainLen!==b.chainLen||a.exported!==b.exported){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
   document.body.dataset.selftest = ok?"PASS":"FAIL";
   $("badge").textContent = `self-test: ${ok?"PASS":"FAIL"}`+(fails.length? " — "+fails[0]:"");
   return {ok, fails};
