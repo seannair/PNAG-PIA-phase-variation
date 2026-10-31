@@ -163,25 +163,26 @@
     <text x="595" y="417" text-anchor="middle" font-size="8" fill="#ccfbf1">transferase</text>
   </g>
 
-  <!-- IcaC channel — straddles the wall band; the PNAG strand threads through it -->
+  <!-- IcaC channel — straddles the wall band; label sits at the top so the threading strand crosses clear -->
   <g id="icaCG">
-    <rect x="707" y="593" width="58" height="42" rx="12" fill="#8b5cf6"/>
-    <text x="736" y="619" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
+    <rect x="707" y="583" width="58" height="56" rx="12" fill="#8b5cf6"/>
+    <text x="736" y="599" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
   </g>
 
-  <!-- PNAG strand threading through IcaC: amber (GlcNAc) inside the cell, green deacetylated tail outside; dots built by JS -->
-  <path id="chainLine" d="" fill="none" stroke="none"/>
-  <g id="beadsG"></g>
-  <path id="xIcaCP" d="M712,599 l48,30 M760,599 l-48,30" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path id="xIcaCP" d="M712,589 l48,44 M760,589 l-48,44" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
 
-  <!-- IcaB deacetylase — OUTSIDE the cell; drawn above the strand so its halo covers the tail at the exit -->
+  <!-- IcaB deacetylase — OUTSIDE the cell; label upper-left so the strand chord crosses clear -->
   <g id="icaBWrap">
     <rect id="icaBHi" x="700" y="630" width="104" height="52" rx="16" fill="#fffbeb" opacity="0"/>
     <g id="icaBG">
       <rect x="706" y="636" width="92" height="40" rx="13" fill="#fbbf24"/>
-      <text x="752" y="662" text-anchor="middle" font-size="14.5" font-weight="800" fill="#78350f">IcaB</text>
+      <text x="712" y="652" font-size="14.5" font-weight="800" fill="#78350f">IcaB</text>
     </g>
   </g>
+
+  <!-- PNAG strand — topmost in the cell zone: dark-navy linked monomers inside, green deacetylated from IcaB exit; dots built by JS -->
+  <path id="chainLine" d="" fill="none" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round"/>
+  <g id="beadsG"></g>
 
   <!-- labels -->
   <text id="oligoLbl" x="706" y="500" text-anchor="middle" font-size="12.5" fill="#92400e">short oligomers (&lt;20 units) — can't be exported</text>
@@ -294,7 +295,7 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
 (function buildLegend(){
   const items = [
     ["#4d7cfe","ica operon genes"],["#8b5cf6","IcaR repressor"],["#f97362","IS256 element"],
-    ["#22d3ee","TSD (8-bp duplication)"],["#fbbf24","PNAG (GlcNAc, inside)"],["#cbd5e1","Surface"],
+    ["#22d3ee","TSD (8-bp duplication)"],["#1e3a8a","PNAG (GlcNAc, inside)"],["#cbd5e1","Surface"],
     ["#34d399","deacetylated PNAG (coat)"]
   ];
   const g = $("legendG"); let x=980, y=106;
@@ -314,16 +315,16 @@ const ROPE_D = "M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619 A211 211 0
 const chainLine = $("chainLine");
 chainLine.setAttribute("d", ROPE_D);
 const ROPE_LEN = chainLine.getTotalLength();
-// arclength where the strand exits the IcaC channel (colour split amber→green happens here)
-const S_EXIT = (()=>{ const m=document.createElementNS("http://www.w3.org/2000/svg","path");
-  m.setAttribute("d","M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619"); return m.getTotalLength(); })();
+// arclength just past the IcaB exit edge (colour split navy→green + deacetylation halo happen here)
+const S_ICAB = (()=>{ const m=document.createElementNS("http://www.w3.org/2000/svg","path");
+  m.setAttribute("d","M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619 A211 211 0 0 1 741 678"); return m.getTotalLength(); })();
 const PITCH = 16, ROPE_A = 6;                    // unit spacing along the rope / first dot offset from the anchor
 const NDOTS = Math.ceil((ROPE_LEN-14)/PITCH);    // steady-state visible units (constant length rope)
 const ropeDots = [];                              // pool j∈[-3,NDOTS-1]: 3 spare units at the transferase end for pop-in
 { const g=$("beadsG");
   for(let j=-3;j<NDOTS;j++){
     const c=document.createElementNS("http://www.w3.org/2000/svg","circle");
-    c.setAttribute("r","5.5"); c.setAttribute("fill","#fbbf24"); c.setAttribute("opacity","0");
+    c.setAttribute("r","5.5"); c.setAttribute("fill","#1e3a8a"); c.setAttribute("opacity","0");
     g.appendChild(c); ropeDots.push({el:c, j});
   } }
 
@@ -412,7 +413,7 @@ function render(t){
     if(u>=1) phi+=1; else if(u>0){ phi+=easeO(u); beatOn=true;
       const pu=Math.sin(Math.PI*u); pdx=9*pu; pdy=6*pu; } } }
 
-  let chainLen=0;
+  let chainLen=0, maxS=0;
   for(const d of ropeDots){
     const j=d.j, s=ROPE_A+(j+phi)*PITCH;                      // arclength along the rope (anchor → coat fade)
     let op;
@@ -427,13 +428,17 @@ function render(t){
     if(op>.02){ const p=chainLine.getPointAtLength(Math.max(0,s));
       d.el.setAttribute("cx",p.x); d.el.setAttribute("cy",p.y);
       d.el.setAttribute("r",(5.5*Math.min(1,seg(s,-8,12))).toFixed(2));
-      d.el.setAttribute("fill", s<S_EXIT ? "#fbbf24" : "#34d399"); }   // deacetylated green beyond the channel exit
+      d.el.setAttribute("fill", s<S_ICAB ? "#1e3a8a" : "#34d399");     // deacetylated green from IcaB exit
+      if(op>0.05 && s>maxS) maxS=Math.min(s,ROPE_LEN); }
     if(op>=.5) chainLen++;
   }
+  // backbone: one dash from the anchor to the furthest visible bead links the monomers (hidden only in the ch3 dissolve gap)
+  chainLine.setAttribute("stroke-dasharray", `${maxS.toFixed(1)} ${ROPE_LEN}`);
+  setOp(chainLine, maxS>2?1:0);
 
-  /* IcaB deacetylation flash: fires as a unit crosses the channel exit during a beat (0 at rest → seam-safe) */
+  /* IcaB deacetylation flash: fires as a unit crosses IcaB's exit during a beat (0 at rest → seam-safe) */
   let halo=0;
-  if(beatOn){ let dm=1e9; for(const d of ropeDots){ const s=ROPE_A+(d.j+phi)*PITCH; dm=Math.min(dm,Math.abs(s-S_EXIT)); }
+  if(beatOn){ let dm=1e9; for(const d of ropeDots){ const s=ROPE_A+(d.j+phi)*PITCH; dm=Math.min(dm,Math.abs(s-S_ICAB)); }
     halo=1-seg(dm,5,13); }
   setOp($("icaBHi"), halo===0 ? 0 : .15+.85*halo);
   $("icaBWrap").setAttribute("transform",`translate(${(4*halo).toFixed(2)},${(2.5*halo).toFixed(2)})`);

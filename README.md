@@ -44,8 +44,9 @@ the MP4 loops seamlessly.
 ## Timeline (36 s loop, four 9-s chapters)
 
 1. **ON** — *icaADBC* operon transcribes; a steady beaded rope of GlcNAc units is built at the IcaA·D transferase
-   and, peristaltic beat by peristaltic beat, threads through the IcaC channel — amber (acetylated) inside,
-   converting to green (deacetylated) as it exits past IcaB into the PNAG coat → multilayered biofilm on the device.
+   and, peristaltic beat by peristaltic beat, threads through the IcaC channel — dark-blue (acetylated) linked
+   monomers inside the cell, converting to green (deacetylated) only on exit of IcaB → PNAG coat → multilayered
+   biofilm on the device.
 2. **JUMP IN** — transposase *tnp256* cuts IS256 out of its home site (ghost left behind) and cut-and-paste
    integrates it into the icaC hot spot, duplicating 8 bp at each end (TSD). *icaC* is broken → transcription
    blocked, only short oligomers (<20 units), no export.
@@ -113,6 +114,15 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   through the channel anchor-first. `S.exported` (units that crossed out this chapter) is exposed in state and
   added to the self-test's seam check, which still passes frame(0) ≡ frame(36). MP4 re-render still deferred —
   regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 5 (2026-11-05):** PNAG chain visibility fixes. (1) The monomer links were missing and the strand was
+  hard to see against the palette — a navy backbone line now connects every bead frame-by-frame, and the in-cell
+  monomers are dark blue (#1e3a8a) instead of amber; legend swatch matches ("PNAG (GlcNAc, inside)"). (2) The
+  IcaC box is taller with its label at the top, so the passing strand no longer covers "IcaC". (3) Green
+  (deacetylated) beads now appear **only on exit of IcaB** — previously they started at the channel mouth; the
+  colour split point moved to a new `S_ICAB` arclength measured just past IcaB's bottom edge, and the deacetylation
+  halo flash fires there too. The strand is also drawn in the foreground over the IcaC/IcaB boxes so it reads as
+  a growing chain threading through them. Self-test still passes; seam unchanged (frame(0) ≡ frame(36)).
+  MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
