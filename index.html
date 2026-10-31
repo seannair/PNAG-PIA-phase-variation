@@ -323,8 +323,8 @@ const chainLine = $("chainLine");
 chainLine.setAttribute("d", ROPE_D);
 const ROPE_LEN = chainLine.getTotalLength();
 // arclength at the IcaB exit (colour split navy→green + deacetylation halo happen here).
-// One pitch (~21px) before the rope end: in steady state the last TWO units (s=326, 342 on the 16px lattice) sit past this point and read as deacetylated coat-green.
-const S_ICAB = ROPE_LEN - 21;
+// ≈37px before the rope end (≈301.7 on the 16px lattice, ~8px clear of both neighbours): in steady state the last THREE units (s=310, 326, 342) sit past this point and read as deacetylated coat-green.
+const S_ICAB = ROPE_LEN - 37;
 const PITCH = 16, ROPE_A = 6;                    // unit spacing along the rope / first dot offset from the anchor
 const NDOTS = Math.ceil((ROPE_LEN-14)/PITCH);    // steady-state visible units (constant length rope)
 const ropeDots = [];                              // pool j∈[-3,NDOTS-1]: 3 spare units at the transferase end for pop-in

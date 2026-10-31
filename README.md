@@ -135,6 +135,12 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   to the in-situ element centre ix=1089; `S.is256.insideIcaC` now spans [1004,1174]. Self-test updated (in-situ
   assertions) and passing; seam unchanged (frame(0) ≡ frame(36)). MP4 re-render still deferred — regenerate with
   `_capture.mjs` + ffmpeg on request.
+- **Round 7 (2026-10-31):** user-requested fix — one more deacetylated bead at IcaB exit. In the steady ON state
+  exactly the last THREE rope units now read coat-green (#34d399) instead of two: `S_ICAB = ROPE_LEN − 37` moves
+  the colour split one full 16-px pitch earlier (≈8 px clear of both lattice neighbours), so beads s=310/326/342
+  trail out of IcaB while all upstream units stay navy. No logic changed — the fill rule and the deacetylation
+  halo already key off `S_ICAB`. Self-test still passing; seam unchanged (frame(0) ≡ frame(36)). MP4 re-render
+  still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
