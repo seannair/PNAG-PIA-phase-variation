@@ -48,8 +48,9 @@ the MP4 loops seamlessly.
    monomers inside the cell, converting to green (deacetylated) only on exit of IcaB → PNAG coat → multilayered
    biofilm on the device.
 2. **JUMP IN** — transposase *tnp256* cuts IS256 out of its home site (ghost left behind) and cut-and-paste
-   integrates it into the icaC hot spot, duplicating 8 bp at each end (TSD). *icaC* is broken → transcription
-   blocked, only short oligomers (<20 units), no export.
+   integrates it into the icaC hot spot, duplicating 8 bp at each end (TSD). The gene is not replaced but
+   **split**: two intact *icaC* fragments flank the inserted element — the icaC–IS256–icaC region is longer than
+   the original gene — and transcription is blocked, only short oligomers (<20 units), no export.
 3. **OFF** — PNAG coat gone; cells are smooth and planktonic; biofilm disassembles — no adhesion to the device.
 4. **JUMP OUT** — precise excision: IS256 leaves icaC carrying the duplicated 8-bp copies, restoring the exact
    original sequence. Operon refires; PNAG⁺ and biofilm return. Phase variation complete.
@@ -123,6 +124,17 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   halo flash fires there too. The strand is also drawn in the foreground over the IcaC/IcaB boxes so it reads as
   a growing chain threading through them. Self-test still passes; seam unchanged (frame(0) ≡ frame(36)).
   MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 6 (2026-10-31):** two user-requested fixes. (1) **Deacetylated beads at IcaB exit** — in the steady ON
+  state exactly the last TWO rope units now read coat-green (#34d399): `S_ICAB = ROPE_LEN − 21` places the colour
+  split just past the third-last bead on the 16-px lattice, so two deacetylated beads trail out of IcaB while all
+  upstream units stay navy. (2) ***icaC* split by insertion** — while IS256 is in situ the gene no longer reads as
+  replaced: it renders as **two labelled fragments flanking the element** (`#icaCSplitG`: a left fragment + a right
+  arrow-head fragment), so the icaC–IS256–icaC region spans ~340 px versus ~190 px intact; the TSD bars sit at both
+  junctions, the block ✕ moves over the downstream (right) fragment, and on precise excision the fragments
+  crossfade back into the single restored arrow. Flight centre, hotspot triangle and the excision callout all moved
+  to the in-situ element centre ix=1089; `S.is256.insideIcaC` now spans [1004,1174]. Self-test updated (in-situ
+  assertions) and passing; seam unchanged (frame(0) ≡ frame(36)). MP4 re-render still deferred — regenerate with
+  `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 

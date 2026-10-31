@@ -73,12 +73,19 @@
   <g id="geneIcaD"><path d="M630,182 h42 l44,23 l-44,23 h-42 z" fill="#4d7cfe"/><text x="673" y="211" text-anchor="middle" font-size="15.5" font-weight="700" fill="#fff">icaD</text></g>
   <g id="geneIcaB"><path d="M736,182 h114 l56,23 l-56,23 h-114 z" fill="#4d7cfe"/><text x="809" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaB</text></g>
   <g id="geneIcaC"><path d="M926,182 h136 l54,23 l-54,23 h-136 z" fill="#4d7cfe"/><text x="1015" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaC</text></g>
-  <path id="xIcaC" d="M1085,196 l38,20 M1123,196 l-38,20" stroke="#ef4444" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- icaC split by the IS256 insertion (shown while in situ): two fragments flank the element, so the region is longer than the intact gene -->
+  <g id="icaCSplitG" opacity="0">
+    <rect x="926" y="183" width="74" height="44" rx="9" fill="#4d7cfe"/>
+    <text x="963" y="211" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">icaC</text>
+    <path d="M1174,182 h56 l38,23 l-38,23 h-56 z" fill="#4d7cfe"/>
+    <text x="1202" y="211" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">icaC</text>
+  </g>
+  <path id="xIcaC" d="M1186,196 l32,20 M1218,196 l-32,20" stroke="#ef4444" stroke-width="7" stroke-linecap="round" fill="none"/>
 
   <!-- hotspot marker -->
   <g id="hotspotG">
-    <path d="M1013,158 l9,14 h-18 z" fill="#fb7185"/>
-    <text x="1006" y="170" text-anchor="end" font-size="12.5" font-weight="700" fill="#e11d48">IS256 hot spot</text>
+    <path d="M1089,158 l9,14 h-18 z" fill="#fb7185"/>
+    <text x="1078" y="170" text-anchor="end" font-size="12.5" font-weight="700" fill="#e11d48">IS256 hot spot</text>
   </g>
 
   <!-- home-site ghost + nicks (visible while IS256 is away from home) -->
@@ -95,8 +102,8 @@
   </g>
 
   <!-- target-site duplications -->
-  <rect id="tsdL" x="904" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
-  <rect id="tsdR" x="1074" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
+  <rect id="tsdL" x="999" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
+  <rect id="tsdR" x="1169" y="179" width="9" height="52" rx="3" fill="#22d3ee"/>
 
   <!-- transposase callout (chapter 2) -->
   <g id="tnpCallG">
@@ -106,8 +113,8 @@
 
   <!-- precise-excision callout (chapter 4) -->
   <g id="excCallG">
-    <line x1="1021" y1="238" x2="1021" y2="262" stroke="#0e7490" stroke-width="2"/>
-    <text x="1021" y="281" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0e7490">precise excision — IS256 + the duplicated 8-bp copies leave; original sequence restored</text>
+    <line x1="1089" y1="238" x2="1089" y2="262" stroke="#0e7490" stroke-width="2"/>
+    <text x="1089" y="281" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0e7490">precise excision — IS256 + the duplicated 8-bp copies leave; original sequence restored</text>
   </g>
 
   <!-- mRNA transcript -->
@@ -315,9 +322,9 @@ const ROPE_D = "M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619 A211 211 0
 const chainLine = $("chainLine");
 chainLine.setAttribute("d", ROPE_D);
 const ROPE_LEN = chainLine.getTotalLength();
-// arclength just past the IcaB exit edge (colour split navy→green + deacetylation halo happen here)
-const S_ICAB = (()=>{ const m=document.createElementNS("http://www.w3.org/2000/svg","path");
-  m.setAttribute("d","M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619 A211 211 0 0 1 741 678"); return m.getTotalLength(); })();
+// arclength at the IcaB exit (colour split navy→green + deacetylation halo happen here).
+// One pitch (~21px) before the rope end: in steady state the last TWO units (s=326, 342 on the 16px lattice) sit past this point and read as deacetylated coat-green.
+const S_ICAB = ROPE_LEN - 21;
 const PITCH = 16, ROPE_A = 6;                    // unit spacing along the rope / first dot offset from the anchor
 const NDOTS = Math.ceil((ROPE_LEN-14)/PITCH);    // steady-state visible units (constant length rope)
 const ropeDots = [];                              // pool j∈[-3,NDOTS-1]: 3 spare units at the transferase end for pop-in
@@ -343,14 +350,14 @@ function render(t){
   let ix=1385, iy=205, irot=0, iscale=1;
   if(ch===1){                                    /* excise → fly to hot spot */
     const p = easeIO(seg(t,10.4,13.6));
-    ix = 1385 + (994-1385)*p;                    // lands centered on the icaC body
+    ix = 1385 + (1089-1385)*p;                   // lands inside the split icaC (box [1004,1174])
     iy = 205 - Math.sin(p*Math.PI)*150;
     irot = Math.sin(p*Math.PI)*4;
     iscale = 1-.3*Math.sin(p*Math.PI);           /* shrink in flight so it clears the legend */
-  } else if(ch===2){ ix=994; }
+  } else if(ch===2){ ix=1089; }
   else if(ch===3){                               /* precise excision, flies home carrying TSDs */
     const p = easeIO(seg(t,28.2,31.2));
-    ix = 994 + (1385-994)*p;
+    ix = 1089 + (1385-1089)*p;
     iy = 205 - Math.sin(p*Math.PI)*150;
     irot = -Math.sin(p*Math.PI)*4;
     iscale = 1-.3*Math.sin(p*Math.PI);
@@ -370,13 +377,16 @@ function render(t){
   let tsdX=0, tsdVis=0;
   if(ch===1){ tsdVis=easeO(seg(t,15.4,16.8)); }                           // fade in at landing ends
   else if(ch===2){ tsdVis=1; }
-  else if(ch===3){ tsdX=ix-994; tsdVis=t>=30.8?clamp((31.4-t)/0.6,0,1):1; } // bars ride the element home, then recombine away
+  else if(ch===3){ tsdX=ix-1089; tsdVis=t>=30.8?clamp((31.4-t)/0.6,0,1):1; } // bars ride the element home, then recombine away
   $("tsdL").setAttribute("transform",`translate(${tsdX.toFixed(1)},0)`); setOp($("tsdL"),tsdVis);
   $("tsdR").setAttribute("transform",`translate(${tsdX.toFixed(1)},0)`); setOp($("tsdR"),tsdVis);
 
-  /* icaC broken state */
+  /* icaC broken state; while IS256 is in situ the gene reads as two fragments flanking it (region longer than intact) */
   const broken = (ch===1 && t>16.2) || ch===2 || (ch===3 && t<31.4);      // icaC restored only after excision lands home
-  $("geneIcaC").setAttribute("fill-opacity", broken? .35 : 1);
+  const splitOp = ch===0?0 : ch===1 ? easeIO(seg(t,13.6,14.8)) : ch===2 ? 1 : t<31.4?1:1-easeIO(seg(t,31.4,32.2));
+  setOp($("geneIcaC"), (1-splitOp)*(broken?.35:1));                       // intact arrow ↔ split fragments crossfade
+  for(const c of $("icaCSplitG").children) c.setAttribute("opacity", broken?.35:1);
+  setOp($("icaCSplitG"), splitOp);
   setOp($("xIcaC"), broken? .95:0);
 
   /* transposase + excision callouts */
@@ -491,7 +501,7 @@ function render(t){
   setOp($("titleG"), .98);
 
   S.t=t; S.chapter=ch;
-  S.is256={x:ix,y:iy,insideIcaC:(ix>=909&&ix<=1079),atHome:(ix>1370)}; // in-situ span at the icaC hot spot
+  S.is256={x:ix,y:iy,insideIcaC:(ix>=1004&&ix<=1174),atHome:(ix>1370)}; // in-situ span at the split-icaC hot spot (IS256 box)
   S.icaCBroken=broken; S.mRNAon=!!(mOpFinal>.4); S.coat=coat; S.biofilm=bf; S.planktonic=plank;
 }
 
