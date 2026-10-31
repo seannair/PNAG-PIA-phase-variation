@@ -152,6 +152,10 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   (hard step, no crossfade gap); only the membrane channel ✕ lags until the element lands home (protein turnover trails
   the gene). Self-test gains a chainLen guard at t=14 and passes; seam unchanged (frame(0) ≡ frame(36)); zero pageerrors
   ×3 viewports. MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 9 (2026-10-31):** three user-requested fixes after a vision review of the shipped animation.
+  (1) **TSD bars are now static hot-spot markers** — tsdL stays fixed at x=999 (icaC insertion site), opacity gated to ch1/ch2/early-ch3 only; tsdR moved to x=1380 (home centre), visible while IS256 is away. No transform ever applied — the bars no longer ride the element flight like a conveyor. Seam-safe: both invisible at t≈0 and t≈D.
+  (2) **Per-cell diffuse PNAG halos replace the solid matrix blob** — removed `matrixG` (impossible pre-formed green ellipse). Each attached cell now has its own soft radial-gradient halo (`coatGlow`: #6ee7b7 → transparent) that blooms in with a staggered cascade as biofilm regrows, and swells on each peristaltic beat. No solid matrix before cells attach.
+  (3) **Coat rings sync to phi and thicken like an overlay** — `coatDepth = 1 + 1.6·clamp(φ/3)` grows ring thickness from single-bead to multi-bead as the chain exports; dashoffsets are exact multiples of one bead pitch per φ unit, so coat beads advance in lockstep with the secreted strand (inner ring trails outer → sliding-overlay look). `NCOAT1=64`, `NCOAT2=56` integer bead counts keep the pattern seamless. Self-test passes; seam unchanged (frame(0)≡frame(D)). MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
