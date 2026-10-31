@@ -78,7 +78,7 @@
   <!-- hotspot marker -->
   <g id="hotspotG">
     <path d="M1013,158 l9,14 h-18 z" fill="#fb7185"/>
-    <text x="1022" y="152" text-anchor="middle" font-size="12.5" font-weight="700" fill="#e11d48">IS256 hot spot</text>
+    <text x="1006" y="170" text-anchor="end" font-size="12.5" font-weight="700" fill="#e11d48">IS256 hot spot</text>
   </g>
 
   <!-- home-site ghost + nicks (visible while IS256 is away from home) -->
@@ -127,9 +127,9 @@
 
 <!-- ================= CELL ZONE ================= -->
 <g id="cellG">
-  <!-- PNAG coat (drawn under cell so it reads as a surface corona) -->
-  <circle id="coat1" cx="560" cy="570" r="204" fill="none" stroke="#fbbf24" stroke-width="9" stroke-dasharray="3 26" stroke-linecap="round"/>
-  <circle id="coat2" cx="560" cy="570" r="182" fill="none" stroke="#fde68a" stroke-width="6" stroke-dasharray="2.5 24" stroke-linecap="round"/>
+  <!-- PNAG coat (drawn under cell so it reads as a surface corona) — deacetylated, green -->
+  <circle id="coat1" cx="560" cy="570" r="204" fill="none" stroke="#34d399" stroke-width="9" stroke-dasharray="3 26" stroke-linecap="round"/>
+  <circle id="coat2" cx="560" cy="570" r="182" fill="none" stroke="#a7f3d0" stroke-width="6" stroke-dasharray="2.5 24" stroke-linecap="round"/>
 
   <!-- coccus (Gram-positive: single thick peptidoglycan wall, no outer membrane) -->
   <circle cx="560" cy="570" r="190" fill="url(#cellGrad)" stroke="#fdba74" stroke-width="2"/>
@@ -163,11 +163,18 @@
     <text x="595" y="417" text-anchor="middle" font-size="8" fill="#ccfbf1">transferase</text>
   </g>
 
-  <!-- growing GlcNAc chain (arc along the inner membrane leaflet: IcaA·D face → IcaC mouth) -->
-  <path id="chainLine" d="" fill="none" stroke="#d9a53f" stroke-width="4"/>
-  <g id="beadsG"></g>
+  <!-- IcaC channel — straddles the wall band; the PNAG strand threads through it -->
+  <g id="icaCG">
+    <rect x="707" y="593" width="58" height="42" rx="12" fill="#8b5cf6"/>
+    <text x="736" y="619" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
+  </g>
 
-  <!-- IcaB deacetylase — OUTSIDE the cell in the peptidoglycan/coat zone; halo flashes as an exported unit crosses out -->
+  <!-- PNAG strand threading through IcaC: amber (GlcNAc) inside the cell, green deacetylated tail outside; dots built by JS -->
+  <path id="chainLine" d="" fill="none" stroke="none"/>
+  <g id="beadsG"></g>
+  <path id="xIcaCP" d="M712,599 l48,30 M760,599 l-48,30" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+
+  <!-- IcaB deacetylase — OUTSIDE the cell; drawn above the strand so its halo covers the tail at the exit -->
   <g id="icaBWrap">
     <rect id="icaBHi" x="700" y="630" width="104" height="52" rx="16" fill="#fffbeb" opacity="0"/>
     <g id="icaBG">
@@ -176,19 +183,8 @@
     </g>
   </g>
 
-  <!-- IcaC channel — straddles the wall band, mouth at the chain tip -->
-  <g id="icaCG">
-    <rect x="707" y="593" width="58" height="42" rx="12" fill="#8b5cf6"/>
-    <text x="736" y="619" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
-  </g>
-  <path id="xIcaCP" d="M712,599 l48,30 M760,599 l-48,30" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
-
-  <!-- synthesis conveyor beads (drawn above chain, IcaB and channel so exports read as passing through) -->
-  <circle id="bNew" cx="626" cy="435" r="0" fill="#f59e0b" opacity="0"/>
-  <circle id="bExp" cx="702" cy="608" r="7.5" fill="#f59e0b" stroke="#fff" stroke-width="2" opacity="0"/>
-
   <!-- labels -->
-  <text id="oligoLbl" x="610" y="540" text-anchor="middle" font-size="12.5" fill="#92400e">short oligomers (&lt;20 units) — can't be exported</text>
+  <text id="oligoLbl" x="706" y="500" text-anchor="middle" font-size="12.5" fill="#92400e">short oligomers (&lt;20 units) — can't be exported</text>
   <g id="coatLblG">
     <rect x="762" y="398" width="170" height="28" rx="14" fill="#fffbeb" stroke="#fde68a"/>
     <text x="847" y="417" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b45309">PNAG coat (PIA/PNAG)</text>
@@ -274,7 +270,7 @@
 const D = 36;                 // loop duration (s)
 const CH = [0, 9, 18, 27];    // chapter starts
 const CAPTIONS = [
-  ["ON — intact <tspan font-style='italic'>icaADBC</tspan> operon: IcaA·D builds the GlcNAc chain from UDP-GlcNAc,","IcaB deacetylates it, IcaC exports it → PNAG coat → biofilm on devices."],
+  ["ON — intact <tspan font-style='italic'>icaADBC</tspan> operon: IcaA·D builds the GlcNAc chain from UDP-GlcNAc,","the chain threads through IcaC; IcaB deacetylates it outside → PNAG coat → biofilm on devices."],
   ["JUMP IN — transposase tnp256 cuts IS256 (~1.3 kb) out of its old site;","cut-and-paste integration lands in the <tspan font-style='italic'>icaC</tspan> hot spot, duplicating 8 bp at each end (TSD)."],
   ["OFF — no functional IcaC: the polymer can't be exported.","No PNAG on the surface → smooth cells drift free; the biofilm falls apart."],
   ["JUMP OUT — precise excision removes IS256 together with the duplicated 8-bp","TSD copies, restoring <tspan font-style='italic'>icaC</tspan> exactly. PIA/PNAG⁺ and biofilm return — phase variation."]
@@ -298,11 +294,12 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
 (function buildLegend(){
   const items = [
     ["#4d7cfe","ica operon genes"],["#8b5cf6","IcaR repressor"],["#f97362","IS256 element"],
-    ["#22d3ee","TSD (8-bp duplication)"],["#fbbf24","PNAG polymer"],["#cbd5e1","Surface"]
+    ["#22d3ee","TSD (8-bp duplication)"],["#fbbf24","PNAG (GlcNAc, inside)"],["#cbd5e1","Surface"],
+    ["#34d399","deacetylated PNAG (coat)"]
   ];
   const g = $("legendG"); let x=980, y=106;
   for(let i=0;i<items.length;i++){
-    if(i===3){ x=980; y=128; }
+    if(i===3){ x=980; y=128; } else if(i===6){ x=980; y=150; }
     const [c,label]=items[i];
     const w = label.length*7.4 + 34;
     g.innerHTML += `<rect x="${x}" y="${y-15}" width="${w}" height="24" rx="12" fill="#ffffff" opacity=".82"/>`+
@@ -312,19 +309,23 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
   }
 })();
 
-/* ---------- chain slot geometry: arc along the inner membrane leaflet (IcaA·D face → IcaC mouth) ---------- */
-const SLOT_R = 147;
-const SLOT_ANG = [15,5,-5,-15,-25,-35,-45,-55];   // deg. P[0]=tip at the IcaC mouth, P[7]=growing end beside the transferase
-function slotXY(i){ const a=SLOT_ANG[i]*Math.PI/180; return [560+SLOT_R*Math.cos(a), 570+SLOT_R*Math.sin(a)]; }
-function arcD(x1,y1,x2,y2){ return `M${x1.toFixed(1)},${y1.toFixed(1)} A${SLOT_R} ${SLOT_R} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)}`; }
-(function buildBeads(){
-  const g=$("beadsG"); let h="";
-  for(let i=0;i<8;i++){
-    const [sx,sy]=slotXY(i);
-    h += `<circle id="b${i}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="7.5" fill="#f59e0b"/>`;
-  }
-  g.innerHTML=h;
-})();
+/* ---------- PNAG rope geometry: transferase anchor → inner arc → through the IcaC channel → outer run to the coat fade point ---------- */
+const ROPE_D = "M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619 A211 211 0 0 1 737 685";
+const chainLine = $("chainLine");
+chainLine.setAttribute("d", ROPE_D);
+const ROPE_LEN = chainLine.getTotalLength();
+// arclength where the strand exits the IcaC channel (colour split amber→green happens here)
+const S_EXIT = (()=>{ const m=document.createElementNS("http://www.w3.org/2000/svg","path");
+  m.setAttribute("d","M626 435 L644.3 449.5 A147 147 0 0 1 702 608 L765 619"); return m.getTotalLength(); })();
+const PITCH = 16, ROPE_A = 6;                    // unit spacing along the rope / first dot offset from the anchor
+const NDOTS = Math.ceil((ROPE_LEN-14)/PITCH);    // steady-state visible units (constant length rope)
+const ropeDots = [];                              // pool j∈[-3,NDOTS-1]: 3 spare units at the transferase end for pop-in
+{ const g=$("beadsG");
+  for(let j=-3;j<NDOTS;j++){
+    const c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("r","5.5"); c.setAttribute("fill","#fbbf24"); c.setAttribute("opacity","0");
+    g.appendChild(c); ropeDots.push({el:c, j});
+  } }
 
 /* ---------- biofilm geometry ---------- */
 const BF_HOME = [[1090,772],[1156,772],[1222,772],[1288,772],[1354,772],[1180,730],[1288,728]];
@@ -402,96 +403,44 @@ function render(t){
   setOp($("udpArrow"), mach*.9);   setOp($("udpHead"), mach*.9);
   setOp($("icaBG"), mach*.97);
 
-  /* chain: full during ON, short oligomer stub while OFF */
-  const full = ch===0 ? 1 : ch===1 ? (t<16.2?1:1-seg(t,16.2,17.4)) : ch===3 ? seg(t,32.4,35.2) : 0;
-  const stub = ((ch===1&&t>=16.2)||ch===2);                    // trapped short oligomers while IcaC is broken
-  setOp($("oligoLbl"), stub && full<.05 ? .95:0);
+  /* PNAG strand: steady rope flow threading through IcaC (peristaltic beats in ch0); the tail retracts to a trapped
+     3-unit stub when the operon is off; regrows anchor-first in ch3. Settled state ≡ frame(0) → seam-safe. */
+  setOp($("oligoLbl"), (ch===1&&t>17.9)||ch===2 ? .95 : 0);
+
+  let phi=0, beatOn=false, pdx=0, pdy=0;                      // peristaltic phase in pitches — only ch0 beats
+  if(ch===0){ for(const tb of [0.8,3.6,6.4]){ const u=(t-tb)/0.7;
+    if(u>=1) phi+=1; else if(u>0){ phi+=easeO(u); beatOn=true;
+      const pu=Math.sin(Math.PI*u); pdx=9*pu; pdy=6*pu; } } }
 
   let chainLen=0;
-  if(ch===0){
-    /* grow to full, then export: settled at 6 beads (P[2..7]). Beats 1–2 add a unit at P[7] and shift the arc toward IcaC (→8).
-       Beat 3 is turnover at the cap: the tip unit leaves through IcaC past IcaB while the newest unit arrives — net steady (flow, not loss). */
-    const GROWPT=[626,435];
-    let cDone=0,bc=-1,t0b=0;
-    for(const a of [0.8,3.6,6.4]){ if(t>=a+2) cDone++; else if(t>=a){ bc=a<2?0 : a<5?1 : 2; t0b=a; } }
-    const baseLo = cDone<=0 ? 2 : cDone===1 ? 1 : 0;          // lowest occupied slot (settled frame(0): P[2..7] = 6 beads)
-    let pdx=0,pdy=0;
-    if(bc>=0){ const pu=Math.sin(Math.PI*seg(t,t0b,t0b+.55)); pdx=9*pu; pdy=6*pu; }
-    $("udpG").setAttribute("transform",`translate(${pdx.toFixed(1)},${pdy.toFixed(1)})`);
-    const pop = bc>=0 ? easeO(seg(t,t0b,t0b+.4)) : 0;         // new unit appears at the growing end (beside the transferase)
-    const shift = bc>=0 ? easeIO(seg(t,t0b+.35,t0b+1)) : 0;   // whole arc steps one slot toward IcaC
-    let growE=slotXY(7);                                      // chainLine endpoints: growing end … tip
-    if(bc>=0){
-      const [gx,gy]=[GROWPT[0]+(slotXY(7)[0]-GROWPT[0])*shift, GROWPT[1]+(slotXY(7)[1]-GROWPT[1])*shift];
-      const bn=$("bNew");
-      bn.setAttribute("cx",gx.toFixed(1)); bn.setAttribute("cy",gy.toFixed(1));
-      bn.setAttribute("r",(7.5*pop).toFixed(2)); setOp(bn,pop>0?1:0);
-      growE=[gx,gy];
-    } else setOp($("bNew"),0);
-    let tipP=slotXY(baseLo), visB=0;
-    for(let k=0;k<8;k++){
-      const b=$("b"+k);
-      if(bc===-1){
-        const i=baseLo+k;
-        if(i>7){ setOp(b,0); continue; }
-        const [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b,1); visB++;
-      } else {
-        const from=baseLo+k;
-        if(from>7 || (bc===2&&from===0)){ setOp(b,0); continue; }   // departing tip unit is drawn by bExp (topmost)
-        const [fx,fy]=slotXY(from), [tx,ty]=slotXY(from-1);
-        b.setAttribute("cx",(fx+(tx-fx)*shift).toFixed(1));
-        b.setAttribute("cy",(fy+(ty-fy)*shift).toFixed(1)); setOp(b,1); visB++;
-      }
-    }
-    if(bc>=0 && bc<2){ const [fx,fy]=slotXY(baseLo), [tx,ty]=slotXY(baseLo-1); tipP=[fx+(tx-fx)*shift, fy+(ty-fy)*shift]; }
-    /* beat 3: the tip unit flies out through the IcaC channel to IcaB in the coat (deacetylation halo fires as it crosses the wall) */
-    let fExp=-1;
-    if(bc===2){
-      fExp = t<t0b+1 ? .4*shift : .4+.6*seg(t,t0b+1,t0b+2);
-      const u=1-fExp;
-      $("bExp").setAttribute("cx",(u*u*u*702+3*fExp*u*u*734+3*fExp*fExp*u*750+fExp*fExp*fExp*758).toFixed(1));
-      $("bExp").setAttribute("cy",(u*u*u*608+3*fExp*u*u*613+3*fExp*fExp*u*644+fExp*fExp*fExp*666).toFixed(1));
-      setOp($("bExp"), 1-seg(fExp,.82,.97));
-      tipP=[$("bExp").getAttribute("cx")*1, $("bExp").getAttribute("cy")*1];
-    } else setOp($("bExp"),0);
-    const fl = bc===2 ? Math.sin(Math.PI*seg(fExp,.3,.55)) : 0;      // IcaB deacetylation flash while the unit crosses out
-    setOp($("icaBHi"), .95*fl);
-    $("icaBWrap").setAttribute("transform",`translate(${(4*fl).toFixed(1)},${(2.5*fl).toFixed(1)})`);
-    $("chainLine").setAttribute("d", arcD(growE[0],growE[1],tipP[0],tipP[1]));
-    setOp($("chainLine"),.95);
-    chainLen = visB + (pop>0?1:0);
-  } else if(ch===3){
-    /* trapped short oligomer (P[0..2]) dissolves; fresh chain regrows from the transferase end P[7]→P[2].
-       Settled pixels = P[2..7] ≡ frame(0) → seam-safe. */
-    const stubOp = 1-seg(t,31.6,32.4);
-    for(let i=0;i<3;i++){ const b=$("b"+i), [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b,stubOp); }
-    const e6=["b3","b4","b5","b6","b7","bNew"];
-    let minI=8, maxS=0, nGrow=0;
-    for(let k=0;k<6;k++){
-      const b=$(e6[k]), s=easeO(seg(t,32.4+k*.32,32.95+k*.32));
-      if(s>maxS) maxS=s;
-      const [sx,sy]=slotXY(7-k);
-      b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1));
-      b.setAttribute("r",(7.5*s).toFixed(2)); setOp(b, s>0?1:0);
-      if(s>0){ nGrow++; minI=Math.min(minI,7-k); }
-    }
-    let d="";
-    if(stubOp>0) d += arcD(slotXY(2)[0],slotXY(2)[1],slotXY(0)[0],slotXY(0)[1]);
-    if(maxS>0 && minI<7) d += arcD(slotXY(7)[0],slotXY(7)[1],slotXY(minI)[0],slotXY(minI)[1]);
-    $("chainLine").setAttribute("d", d);
-    setOp($("chainLine"), .95*Math.max(stubOp, maxS));
-    chainLen = (stubOp>.5?3:0) + nGrow;
-  } else {
-    /* ch1–ch2: full static chain → fades from the growing end to a trapped 3-bead stub at the IcaC mouth */
-    const nBeads = Math.max(stub?3:0, Math.round(8*full));
-    $("chainLine").setAttribute("d", nBeads>1 ? arcD(slotXY(nBeads-1)[0],slotXY(nBeads-1)[1],slotXY(0)[0],slotXY(0)[1]) : "");
-    setOp($("chainLine"), nBeads>1 ? .95:0);
-    for(let i=0;i<8;i++){ const b=$("b"+i), [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b, i<nBeads?1:0); }
-    chainLen = nBeads;
-    setOp($("bNew"),0); setOp($("bExp"),0); setOp($("icaBHi"),0);
-    $("udpG").setAttribute("transform","translate(0,0)");
-    $("icaBWrap").setAttribute("transform","translate(0,0)");
+  for(const d of ropeDots){
+    const j=d.j, s=ROPE_A+(j+phi)*PITCH;                      // arclength along the rope (anchor → coat fade)
+    let op;
+    if(ch===0) op=1;
+    else if(ch===1) op = t<16.2 || j<=2 ? 1 : 1-seg(t, 16.2+((NDOTS-1-j)/(NDOTS-3))*1.3, 16.55+((NDOTS-1-j)/(NDOTS-3))*1.3);  // tail retracts first
+    else if(ch===2) op = j<=2 ? 1 : 0;                        // trapped stub at the transferase anchor
+    else op = j<=2 ? (t<32.4 ? 1-seg(t,31.6,32.4) : 1)        // ch3: stub dissolves…
+                    : easeO(seg(t, 32.2+(j-2)*.08, 32.55+(j-2)*.08));   // …strand regrows anchor-first (done ≈t34 < seam)
+    if(s<-8||s>ROPE_LEN+14) op=0;                             // outside the rope: new unit pops in at the anchor, tip is absorbed past IcaB
+    else op*=Math.min(1,seg(s,-8,12))*(1-seg(s,ROPE_LEN-6,ROPE_LEN+14));
+    d.el.setAttribute("opacity",op.toFixed(3));
+    if(op>.02){ const p=chainLine.getPointAtLength(Math.max(0,s));
+      d.el.setAttribute("cx",p.x); d.el.setAttribute("cy",p.y);
+      d.el.setAttribute("r",(5.5*Math.min(1,seg(s,-8,12))).toFixed(2));
+      d.el.setAttribute("fill", s<S_EXIT ? "#fbbf24" : "#34d399"); }   // deacetylated green beyond the channel exit
+    if(op>=.5) chainLen++;
   }
+
+  /* IcaB deacetylation flash: fires as a unit crosses the channel exit during a beat (0 at rest → seam-safe) */
+  let halo=0;
+  if(beatOn){ let dm=1e9; for(const d of ropeDots){ const s=ROPE_A+(d.j+phi)*PITCH; dm=Math.min(dm,Math.abs(s-S_EXIT)); }
+    halo=1-seg(dm,5,13); }
+  setOp($("icaBHi"), halo===0 ? 0 : .15+.85*halo);
+  $("icaBWrap").setAttribute("transform",`translate(${(4*halo).toFixed(2)},${(2.5*halo).toFixed(2)})`);
+  $("udpG").setAttribute("transform",`translate(${pdx.toFixed(1)},${pdy.toFixed(1)})`);
+
+  S.chainLen=chainLen;
+  S.exported = ch===0 ? Math.round(phi) : 0;                  // units converted at IcaC this cycle (resets with the loop)
 
   /* IcaC channel state */
   const chOff = (ch===1&&t>=16.2)||ch===2||(ch===3&&t<31.4);
@@ -539,18 +488,19 @@ function render(t){
   S.t=t; S.chapter=ch;
   S.is256={x:ix,y:iy,insideIcaC:(ix>=909&&ix<=1079),atHome:(ix>1370)}; // in-situ span at the icaC hot spot
   S.icaCBroken=broken; S.mRNAon=!!(mOpFinal>.4); S.coat=coat; S.biofilm=bf; S.planktonic=plank;
-  S.chainLen=chainLen; // visible PNAG units in the cell (grows to full, holds through export)
 }
 
 /* ---------- self-test (?test=1) ---------- */
 function runSelfTest(){
   const checks=[
     [2,  s=>s.chapter===0 && !s.icaCBroken && s.mRNAon],
-    [0.5,s=>s.chainLen===6],                                          // settled start: K=6 chain
-    [4.3,s=>s.chainLen===8],                                          // grown to full at the transferase end
-    [7.9,s=>s.chainLen===8],                                          // holds full while a unit exports (flow, not loss)
-    [20, s=>s.chainLen===3],                                          // trapped 3-bead stub after IS256 excision
-    [34.5,s=>s.chainLen>=6 && s.chapter===3],                         // regrown chain in ch3
+    [0.5,s=>Math.abs(s.chainLen-NDOTS)<=1],                           // settled start: full rope threaded through IcaC
+    [5.0,s=>Math.abs(s.chainLen-NDOTS)<=1],                           // constant length mid-beat (flow, not loss)
+    [7.9,s=>Math.abs(s.chainLen-NDOTS)<=1],                           // holds full after the third peristaltic beat
+    [2,  s=>s.exported===1],                                          // one unit converted at IcaC…
+    [8,  s=>s.exported===3],                                          // …three by end of chapter 0
+    [20, s=>s.chainLen===3 && s.exported===0],                        // trapped 3-unit stub after IS256 excision
+    [34.5,s=>Math.abs(s.chainLen-NDOTS)<=1 && s.chapter===3],         // regrown rope in ch3
     [7.5,s=>s.coat>.6 && s.biofilm>.8 && s.is256.atHome],
     [12, s=>!s.is256.atHome && Math.abs(s.is256.y-205)>40],          // in flight (arc apex)
     [17.5,s=>s.is256.insideIcaC && s.icaCBroken && !s.mRNAon],
@@ -561,10 +511,10 @@ function runSelfTest(){
   let ok=true; const fails=[];
   for(const [t,pred] of checks){ render(t); if(!pred(S)) {ok=false; fails.push(`t=${t}: state=${JSON.stringify(S)}`);} }
   /* seam: last frame ≈ first frame (visual state only) */
-  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2),chainLen:S.chainLen});
+  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2),chainLen:S.chainLen,exported:S.exported});
   render(35.98); const a=snap();
   render(0.02);   const b=snap();
-  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.broken!==b.broken||a.chainLen!==b.chainLen){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
+  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.broken!==b.broken||a.chainLen!==b.chainLen||a.exported!==b.exported){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
   document.body.dataset.selftest = ok?"PASS":"FAIL";
   $("badge").textContent = `self-test: ${ok?"PASS":"FAIL"}`+(fails.length? " — "+fails[0]:"");
   return {ok, fails};

@@ -43,8 +43,9 @@ the MP4 loops seamlessly.
 
 ## Timeline (36 s loop, four 9-s chapters)
 
-1. **ON** — *icaADBC* operon transcribes; IcaA·D transferase builds GlcNAc chain from UDP-GlcNAc; IcaB
-   deacetylates; IcaC channel extends + exports full-length PNAG → cell coat → multilayered biofilm on the device.
+1. **ON** — *icaADBC* operon transcribes; a steady beaded rope of GlcNAc units is built at the IcaA·D transferase
+   and, peristaltic beat by peristaltic beat, threads through the IcaC channel — amber (acetylated) inside,
+   converting to green (deacetylated) as it exits past IcaB into the PNAG coat → multilayered biofilm on the device.
 2. **JUMP IN** — transposase *tnp256* cuts IS256 out of its home site (ghost left behind) and cut-and-paste
    integrates it into the icaC hot spot, duplicating 8 bp at each end (TSD). *icaC* is broken → transcription
    blocked, only short oligomers (<20 units), no export.
@@ -102,6 +103,16 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   turnover — a new unit joins while the tip unit is exported through IcaC past IcaB (net steady; reads as
   flow, not loss). `S.chainLen` exposed in state + asserted by the self-test (growth curve and seam).
   MP4 re-render still deferred.
+- **Round 4 (2026-10-31):** the PNAG chain now actually threads through IcaC — "steady rope flow". A
+  constant-length beaded rope is anchored at the transferase; each peristaltic beat adds one unit there and pushes
+  the strand forward, so every bead travels the same path: amber (acetylated) inside, converting to green
+  (deacetylated) exactly as it crosses out of the IcaC channel mouth past IcaB, then absorbed into the coat. The
+  PNAG coat rings are re-tinted green and the legend gains a "deacetylated PNAG (coat)" entry; each beat fires one
+  IcaB halo flash at the unit that crosses. Chapter 2 breaks *icaC* → the strand retracts tail-first to a 3-unit
+  stub with a new "short oligomers (<20 units) — can't be exported" label; chapter 4 regrowth re-threads the rope
+  through the channel anchor-first. `S.exported` (units that crossed out this chapter) is exposed in state and
+  added to the self-test's seam check, which still passes frame(0) ≡ frame(36). MP4 re-render still deferred —
+  regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
