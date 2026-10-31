@@ -141,6 +141,17 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   trail out of IcaB while all upstream units stay navy. No logic changed — the fill rule and the deacetylation
   halo already key off `S_ICAB`. Self-test still passing; seam unchanged (frame(0) ≡ frame(36)). MP4 re-render
   still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 8 (2026-10-31):** three user-requested choreography fixes after a vision review of the shipped animation.
+  (1) **PNAG synthesis now runs until IS256 inserts** — peristaltic beats extended to five (`t₀∈{0.8,3.6,6.4,9.8,12.7}`),
+  so the rope keeps flowing through the jump-in and is still essentially full (green tip visible) at touchdown; a new φ
+  contraction in ch1 pulls the strand back to the anchor as the tail retracts, keeping the OFF-chapter stub exact.
+  (2) **IS256 inserts straight into the centre of *icaC*** — the hotspot mark moved to the true gene centre and the
+  element lands on it; the gene parts into two labelled fragments at the same instant as touchdown (split + TSD bars fire
+  with landing, no "lands at the end then shifts" beat). The operon-off cascade re-gates to t≈13.9.
+  (3) **Instant gapless reformation on excision** — the moment IS256 takes off, *icaC* reads as one closed arrow again
+  (hard step, no crossfade gap); only the membrane channel ✕ lags until the element lands home (protein turnover trails
+  the gene). Self-test gains a chainLen guard at t=14 and passes; seam unchanged (frame(0) ≡ frame(36)); zero pageerrors
+  ×3 viewports. MP4 re-render still deferred — regenerate with `_capture.mjs` + ffmpeg on request.
 
 ## Biology notes & references
 
