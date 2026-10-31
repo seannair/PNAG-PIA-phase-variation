@@ -153,39 +153,39 @@
     <rect x="352" y="404" width="150" height="36" rx="18" fill="#ede9fe" stroke="#c4b5fd"/>
     <text x="427" y="428" text-anchor="middle" font-size="14.5" font-weight="700" fill="#6d28d9">UDP-GlcNAc</text>
   </g>
-  <line id="udpArrow" x1="502" y1="430" x2="536" y2="452" stroke="#a78bfa" stroke-width="3.5"/>
-  <path id="udpHead" d="M543,458 l-14,-4 l4,-13 z" fill="#a78bfa"/>
+  <line id="udpArrow" x1="506" y1="424" x2="556" y2="413" stroke="#a78bfa" stroke-width="3.5"/>
+  <path id="udpHead" d="M566,411 l-11.6,7.7 l-2.2,-9.8 z" fill="#a78bfa"/>
 
-  <!-- IcaA·D transferase complex -->
+  <!-- IcaA·D transferase complex (transmembrane — spans cytoplasmic face through the wall) -->
   <g id="transferG">
-    <rect x="520" y="386" width="94" height="84" rx="16" fill="#14b8a6"/>
-    <text x="567" y="422" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaA·D</text>
-    <text x="567" y="441" text-anchor="middle" font-size="10.5" fill="#ccfbf1">transferase</text>
+    <rect x="568" y="375" width="54" height="58" rx="12" fill="#14b8a6"/>
+    <text x="595" y="401" text-anchor="middle" font-size="14.5" font-weight="800" fill="#fff">IcaA·D</text>
+    <text x="595" y="417" text-anchor="middle" font-size="8" fill="#ccfbf1">transferase</text>
   </g>
 
-  <!-- growing GlcNAc chain -->
-  <line id="chainLine" x1="582" y1="560" x2="740" y2="560" stroke="#d9a53f" stroke-width="4"/>
+  <!-- growing GlcNAc chain (arc along the inner membrane leaflet: IcaA·D face → IcaC mouth) -->
+  <path id="chainLine" d="" fill="none" stroke="#d9a53f" stroke-width="4"/>
   <g id="beadsG"></g>
 
-  <!-- IcaB deacetylase (halo flashes when an exported unit passes over it) -->
+  <!-- IcaB deacetylase — OUTSIDE the cell in the peptidoglycan/coat zone; halo flashes as an exported unit crosses out -->
   <g id="icaBWrap">
-    <rect id="icaBHi" x="643" y="571" width="102" height="50" rx="16" fill="#fffbeb" opacity="0"/>
+    <rect id="icaBHi" x="700" y="630" width="104" height="52" rx="16" fill="#fffbeb" opacity="0"/>
     <g id="icaBG">
-      <rect x="648" y="576" width="92" height="40" rx="13" fill="#fbbf24"/>
-      <text x="694" y="602" text-anchor="middle" font-size="14.5" font-weight="800" fill="#78350f">IcaB</text>
+      <rect x="706" y="636" width="92" height="40" rx="13" fill="#fbbf24"/>
+      <text x="752" y="662" text-anchor="middle" font-size="14.5" font-weight="800" fill="#78350f">IcaB</text>
     </g>
   </g>
 
-  <!-- IcaC channel -->
+  <!-- IcaC channel — straddles the wall band, mouth at the chain tip -->
   <g id="icaCG">
-    <rect x="622" y="736" width="76" height="46" rx="13" fill="#8b5cf6"/>
-    <text x="660" y="766" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
+    <rect x="707" y="593" width="58" height="42" rx="12" fill="#8b5cf6"/>
+    <text x="736" y="619" text-anchor="middle" font-size="15.5" font-weight="800" fill="#fff">IcaC</text>
   </g>
-  <path id="xIcaCP" d="M632,742 l56,34 M688,742 l-56,34" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
+  <path id="xIcaCP" d="M712,599 l48,30 M760,599 l-48,30" stroke="#ef4444" stroke-width="6.5" stroke-linecap="round" fill="none"/>
 
   <!-- synthesis conveyor beads (drawn above chain, IcaB and channel so exports read as passing through) -->
-  <circle id="bNew" cx="596" cy="560" r="0" fill="#f59e0b" opacity="0"/>
-  <circle id="bExp" cx="724" cy="560" r="7.5" fill="#f59e0b" stroke="#fff" stroke-width="2" opacity="0"/>
+  <circle id="bNew" cx="626" cy="435" r="0" fill="#f59e0b" opacity="0"/>
+  <circle id="bExp" cx="702" cy="608" r="7.5" fill="#f59e0b" stroke="#fff" stroke-width="2" opacity="0"/>
 
   <!-- labels -->
   <text id="oligoLbl" x="610" y="540" text-anchor="middle" font-size="12.5" fill="#92400e">short oligomers (&lt;20 units) — can't be exported</text>
@@ -195,7 +195,7 @@
   </g>
 
   <!-- adhesion link to the biofilm zone -->
-  <path id="linkPath" d="M762,618 Q900,700 1046,758" fill="none" stroke="#10b981" stroke-width="4"/>
+  <path id="linkPath" d="M810,690 Q935,720 1046,758" fill="none" stroke="#10b981" stroke-width="4"/>
   <path id="linkHeadP" d="M1058,763 l-17,-2 l7,-15 z" fill="#10b981"/>
   <path id="linkX" d="M1032,742 l26,26 M1058,742 l-26,26" stroke="#ef4444" stroke-width="5.5" stroke-linecap="round" fill="none"/>
   <text id="linkLblOn" x="905" y="668" text-anchor="middle" font-size="13.5" font-weight="700" fill="#047857">PNAG⁺ cells stick → biofilm</text>
@@ -312,12 +312,16 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
   }
 })();
 
-/* ---------- build chain beads (8) ---------- */
-const BEAD_XS = [596,612,628,644,660,676,692,708];
+/* ---------- chain slot geometry: arc along the inner membrane leaflet (IcaA·D face → IcaC mouth) ---------- */
+const SLOT_R = 147;
+const SLOT_ANG = [15,5,-5,-15,-25,-35,-45,-55];   // deg. P[0]=tip at the IcaC mouth, P[7]=growing end beside the transferase
+function slotXY(i){ const a=SLOT_ANG[i]*Math.PI/180; return [560+SLOT_R*Math.cos(a), 570+SLOT_R*Math.sin(a)]; }
+function arcD(x1,y1,x2,y2){ return `M${x1.toFixed(1)},${y1.toFixed(1)} A${SLOT_R} ${SLOT_R} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)}`; }
 (function buildBeads(){
   const g=$("beadsG"); let h="";
   for(let i=0;i<8;i++){
-    h += `<circle id="b${i}" cx="${BEAD_XS[i]}" cy="560" r="7.5" fill="#f59e0b"/>`;
+    const [sx,sy]=slotXY(i);
+    h += `<circle id="b${i}" cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="7.5" fill="#f59e0b"/>`;
   }
   g.innerHTML=h;
 })();
@@ -403,58 +407,87 @@ function render(t){
   const stub = ((ch===1&&t>=16.2)||ch===2);                    // trapped short oligomers while IcaC is broken
   setOp($("oligoLbl"), stub && full<.05 ? .95:0);
 
+  let chainLen=0;
   if(ch===0){
-    /* stepwise synthesis conveyor: UDP pulse → chain slides + new unit pops in at growing end → oldest unit exits through IcaC past IcaB (deacetylation) */
-    let slideS=0, expD=-1, pdx=0, pdy=0;
-    for(const t0 of [0.8,3.6,6.4]){
-      if(t<t0 || t>=t0+2) continue;
-      const pu=Math.sin(Math.PI*seg(t,t0,t0+.55));
-      pdx=11*pu; pdy=7*pu;
-      slideS=easeIO(seg(t,t0+.35,t0+1.0));
-      if(t>=t0+1.0) expD=seg(t,t0+1.0,t0+2.0);
-    }
+    /* grow to full, then export: settled at 6 beads (P[2..7]). Beats 1–2 add a unit at P[7] and shift the arc toward IcaC (→8).
+       Beat 3 is turnover at the cap: the tip unit leaves through IcaC past IcaB while the newest unit arrives — net steady (flow, not loss). */
+    const GROWPT=[626,435];
+    let cDone=0,bc=-1,t0b=0;
+    for(const a of [0.8,3.6,6.4]){ if(t>=a+2) cDone++; else if(t>=a){ bc=a<2?0 : a<5?1 : 2; t0b=a; } }
+    const baseLo = cDone<=0 ? 2 : cDone===1 ? 1 : 0;          // lowest occupied slot (settled frame(0): P[2..7] = 6 beads)
+    let pdx=0,pdy=0;
+    if(bc>=0){ const pu=Math.sin(Math.PI*seg(t,t0b,t0b+.55)); pdx=9*pu; pdy=6*pu; }
     $("udpG").setAttribute("transform",`translate(${pdx.toFixed(1)},${pdy.toFixed(1)})`);
-    let lineX2;
-    if(expD>=0){
-      for(let i=0;i<8;i++){ const b=$("b"+i); b.setAttribute("cx",BEAD_XS[i]); setOp(b,1); }
-      setOp($("bNew"),0);
-      /* departing unit: cubic Bézier from chain end down through the IcaC channel to the coat */
-      const d=expD,u=1-d;
-      $("bExp").setAttribute("cx",(u*u*u*724+3*d*u*u*738+3*d*d*u*706+d*d*d*652).toFixed(1));
-      $("bExp").setAttribute("cy",(u*u*u*560+3*d*u*u*644+3*d*d*u*712+d*d*d*752).toFixed(1));
-      setOp($("bExp"), 1-seg(d,.78,.96));
-      const fl=Math.sin(Math.PI*seg(d,.08,.32));               // IcaB deacetylation flash while the unit crosses the enzyme
-      setOp($("icaBHi"), .95*fl);
-      $("icaBWrap").setAttribute("transform",`translate(${(4*fl).toFixed(1)},${(2.5*fl).toFixed(1)})`);
-      lineX2=714+16*(1-seg(d,0,.3));                           // chain end retracts as the unit leaves
-    } else {
-      for(let i=0;i<8;i++){ const b=$("b"+i); b.setAttribute("cx",(BEAD_XS[i]+16*slideS).toFixed(1)); setOp(b,1); }
-      if(slideS>0){ $("bNew").setAttribute("r",(7.5*slideS).toFixed(2)); setOp($("bNew"),1); }
-      else setOp($("bNew"),0);
-      setOp($("bExp"),0); setOp($("icaBHi"),0);
-      $("icaBWrap").setAttribute("transform","translate(0,0)");
-      lineX2=714+16*slideS;
+    const pop = bc>=0 ? easeO(seg(t,t0b,t0b+.4)) : 0;         // new unit appears at the growing end (beside the transferase)
+    const shift = bc>=0 ? easeIO(seg(t,t0b+.35,t0b+1)) : 0;   // whole arc steps one slot toward IcaC
+    let growE=slotXY(7);                                      // chainLine endpoints: growing end … tip
+    if(bc>=0){
+      const [gx,gy]=[GROWPT[0]+(slotXY(7)[0]-GROWPT[0])*shift, GROWPT[1]+(slotXY(7)[1]-GROWPT[1])*shift];
+      const bn=$("bNew");
+      bn.setAttribute("cx",gx.toFixed(1)); bn.setAttribute("cy",gy.toFixed(1));
+      bn.setAttribute("r",(7.5*pop).toFixed(2)); setOp(bn,pop>0?1:0);
+      growE=[gx,gy];
+    } else setOp($("bNew"),0);
+    let tipP=slotXY(baseLo), visB=0;
+    for(let k=0;k<8;k++){
+      const b=$("b"+k);
+      if(bc===-1){
+        const i=baseLo+k;
+        if(i>7){ setOp(b,0); continue; }
+        const [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b,1); visB++;
+      } else {
+        const from=baseLo+k;
+        if(from>7 || (bc===2&&from===0)){ setOp(b,0); continue; }   // departing tip unit is drawn by bExp (topmost)
+        const [fx,fy]=slotXY(from), [tx,ty]=slotXY(from-1);
+        b.setAttribute("cx",(fx+(tx-fx)*shift).toFixed(1));
+        b.setAttribute("cy",(fy+(ty-fy)*shift).toFixed(1)); setOp(b,1); visB++;
+      }
     }
+    if(bc>=0 && bc<2){ const [fx,fy]=slotXY(baseLo), [tx,ty]=slotXY(baseLo-1); tipP=[fx+(tx-fx)*shift, fy+(ty-fy)*shift]; }
+    /* beat 3: the tip unit flies out through the IcaC channel to IcaB in the coat (deacetylation halo fires as it crosses the wall) */
+    let fExp=-1;
+    if(bc===2){
+      fExp = t<t0b+1 ? .4*shift : .4+.6*seg(t,t0b+1,t0b+2);
+      const u=1-fExp;
+      $("bExp").setAttribute("cx",(u*u*u*702+3*fExp*u*u*734+3*fExp*fExp*u*750+fExp*fExp*fExp*758).toFixed(1));
+      $("bExp").setAttribute("cy",(u*u*u*608+3*fExp*u*u*613+3*fExp*fExp*u*644+fExp*fExp*fExp*666).toFixed(1));
+      setOp($("bExp"), 1-seg(fExp,.82,.97));
+      tipP=[$("bExp").getAttribute("cx")*1, $("bExp").getAttribute("cy")*1];
+    } else setOp($("bExp"),0);
+    const fl = bc===2 ? Math.sin(Math.PI*seg(fExp,.3,.55)) : 0;      // IcaB deacetylation flash while the unit crosses out
+    setOp($("icaBHi"), .95*fl);
+    $("icaBWrap").setAttribute("transform",`translate(${(4*fl).toFixed(1)},${(2.5*fl).toFixed(1)})`);
+    $("chainLine").setAttribute("d", arcD(growE[0],growE[1],tipP[0],tipP[1]));
     setOp($("chainLine"),.95);
-    $("chainLine").setAttribute("x2",lineX2.toFixed(1));
+    chainLen = visB + (pop>0?1:0);
   } else if(ch===3){
-    /* staggered left→right bead pop-in during regrowth (all settled by ~35.2 → seam-safe) */
-    for(let i=0;i<8;i++){
-      const b=$("b"+i), s=easeO(seg(t,32.4+i*.32,32.95+i*.32));
-      if(s>=1){ b.setAttribute("r","7.5"); setOp(b,1); }
-      else { b.setAttribute("cx",BEAD_XS[i]); b.setAttribute("r",(7.5*s).toFixed(2)); setOp(b,s>0?1:0); }
+    /* trapped short oligomer (P[0..2]) dissolves; fresh chain regrows from the transferase end P[7]→P[2].
+       Settled pixels = P[2..7] ≡ frame(0) → seam-safe. */
+    const stubOp = 1-seg(t,31.6,32.4);
+    for(let i=0;i<3;i++){ const b=$("b"+i), [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b,stubOp); }
+    const e6=["b3","b4","b5","b6","b7","bNew"];
+    let minI=8, maxS=0, nGrow=0;
+    for(let k=0;k<6;k++){
+      const b=$(e6[k]), s=easeO(seg(t,32.4+k*.32,32.95+k*.32));
+      if(s>maxS) maxS=s;
+      const [sx,sy]=slotXY(7-k);
+      b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1));
+      b.setAttribute("r",(7.5*s).toFixed(2)); setOp(b, s>0?1:0);
+      if(s>0){ nGrow++; minI=Math.min(minI,7-k); }
     }
-    setOp($("chainLine"), .95*easeO(seg(t,32.4,32.8)));
-    $("chainLine").setAttribute("x2",(586+128*full).toFixed(1));
-    setOp($("bNew"),0); setOp($("bExp"),0); setOp($("icaBHi"),0);
-    $("udpG").setAttribute("transform","translate(0,0)");
-    $("icaBWrap").setAttribute("transform","translate(0,0)");
+    let d="";
+    if(stubOp>0) d += arcD(slotXY(2)[0],slotXY(2)[1],slotXY(0)[0],slotXY(0)[1]);
+    if(maxS>0 && minI<7) d += arcD(slotXY(7)[0],slotXY(7)[1],slotXY(minI)[0],slotXY(minI)[1]);
+    $("chainLine").setAttribute("d", d);
+    setOp($("chainLine"), .95*Math.max(stubOp, maxS));
+    chainLen = (stubOp>.5?3:0) + nGrow;
   } else {
-    /* ch1–ch2: static chain / trapped 3-bead stub (original behavior, cx reset after conveyor) */
+    /* ch1–ch2: full static chain → fades from the growing end to a trapped 3-bead stub at the IcaC mouth */
     const nBeads = Math.max(stub?3:0, Math.round(8*full));
-    $("chainLine").setAttribute("x2", nBeads>0? BEAD_XS[nBeads-1]+6 : 586);
-    setOp($("chainLine"), nBeads>0 ? .95:0);
-    for(let i=0;i<8;i++){ const b=$("b"+i); b.setAttribute("cx",BEAD_XS[i]); setOp(b, i<nBeads?1:0); }
+    $("chainLine").setAttribute("d", nBeads>1 ? arcD(slotXY(nBeads-1)[0],slotXY(nBeads-1)[1],slotXY(0)[0],slotXY(0)[1]) : "");
+    setOp($("chainLine"), nBeads>1 ? .95:0);
+    for(let i=0;i<8;i++){ const b=$("b"+i), [sx,sy]=slotXY(i); b.setAttribute("cx",sx.toFixed(1)); b.setAttribute("cy",sy.toFixed(1)); setOp(b, i<nBeads?1:0); }
+    chainLen = nBeads;
     setOp($("bNew"),0); setOp($("bExp"),0); setOp($("icaBHi"),0);
     $("udpG").setAttribute("transform","translate(0,0)");
     $("icaBWrap").setAttribute("transform","translate(0,0)");
@@ -506,12 +539,18 @@ function render(t){
   S.t=t; S.chapter=ch;
   S.is256={x:ix,y:iy,insideIcaC:(ix>=909&&ix<=1079),atHome:(ix>1370)}; // in-situ span at the icaC hot spot
   S.icaCBroken=broken; S.mRNAon=!!(mOpFinal>.4); S.coat=coat; S.biofilm=bf; S.planktonic=plank;
+  S.chainLen=chainLen; // visible PNAG units in the cell (grows to full, holds through export)
 }
 
 /* ---------- self-test (?test=1) ---------- */
 function runSelfTest(){
   const checks=[
     [2,  s=>s.chapter===0 && !s.icaCBroken && s.mRNAon],
+    [0.5,s=>s.chainLen===6],                                          // settled start: K=6 chain
+    [4.3,s=>s.chainLen===8],                                          // grown to full at the transferase end
+    [7.9,s=>s.chainLen===8],                                          // holds full while a unit exports (flow, not loss)
+    [20, s=>s.chainLen===3],                                          // trapped 3-bead stub after IS256 excision
+    [34.5,s=>s.chainLen>=6 && s.chapter===3],                         // regrown chain in ch3
     [7.5,s=>s.coat>.6 && s.biofilm>.8 && s.is256.atHome],
     [12, s=>!s.is256.atHome && Math.abs(s.is256.y-205)>40],          // in flight (arc apex)
     [17.5,s=>s.is256.insideIcaC && s.icaCBroken && !s.mRNAon],
@@ -522,10 +561,10 @@ function runSelfTest(){
   let ok=true; const fails=[];
   for(const [t,pred] of checks){ render(t); if(!pred(S)) {ok=false; fails.push(`t=${t}: state=${JSON.stringify(S)}`);} }
   /* seam: last frame ≈ first frame (visual state only) */
-  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2)});
+  const snap = () => ({x:Math.round(S.is256.x),y:Math.round(S.is256.y),coat:+S.coat.toFixed(2),biofilm:+S.biofilm.toFixed(2),mRNAon:S.mRNAon,broken:S.icaCBroken,planktonic:+S.planktonic.toFixed(2),chainLen:S.chainLen});
   render(35.98); const a=snap();
   render(0.02);   const b=snap();
-  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.broken!==b.broken){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
+  if(Math.abs(a.x-b.x)>4||Math.abs(a.y-b.y)>4||Math.abs(a.coat-b.coat)>.1||Math.abs(a.biofilm-b.biofilm)>.1||a.mRNAon!==b.mRNAon||a.broken!==b.broken||a.chainLen!==b.chainLen){ ok=false; fails.push(`seam mismatch ${JSON.stringify({end:a,start:b})}`); }
   document.body.dataset.selftest = ok?"PASS":"FAIL";
   $("badge").textContent = `self-test: ${ok?"PASS":"FAIL"}`+(fails.length? " — "+fails[0]:"");
   return {ok, fails};

@@ -93,6 +93,15 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
   the coat. Chapter 4 regrowth now staggers bead pop-ins left→right instead of scaling the whole chain. Seam-safe
   by construction: quiescent windows show the exact all-settled state, so frame(0) ≡ frame(36) still holds.
   `is256_ica_loop.mp4` intentionally **not** re-rendered this round — regenerate with `_capture.mjs` + ffmpeg on request.
+- **Round 3 (2026-10-31):** cell layout aligned to the reference figure and the growth model fixed to
+  **"grow to full, then export"**. IcaA·D is now a transmembrane block sitting on the membrane ring; the PNAG
+  chain runs along an arc of the inner membrane leaflet from the transferase (growing end) down to the IcaC
+  mouth (tip); IcaC straddles the peptidoglycan band as a channel; IcaB sits **outside** the cell in the
+  coat zone, so its deacetylation halo fires as an exported unit crosses out. The ON chapter starts on a
+  settled 6-bead chain: beats add one unit at the growing end (visible growth 6→8), and the last beat shows
+  turnover — a new unit joins while the tip unit is exported through IcaC past IcaB (net steady; reads as
+  flow, not loss). `S.chainLen` exposed in state + asserted by the self-test (growth curve and seam).
+  MP4 re-render still deferred.
 
 ## Biology notes & references
 
