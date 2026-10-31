@@ -103,8 +103,9 @@
     <text x="-2" y="7" text-anchor="middle" font-size="16.5" font-weight="800" fill="#fff">IS256</text>
   </g>
 
-  <!-- TSD hot-spot markers (static, never travel with the element): insertion site in icaC + home site on the genome -->
+  <!-- TSD hot-spot markers (static, never travel with the element): BOTH duplicated 8-bp copies flanking IS256 in icaC + home site on the genome -->
   <rect id="tsdL" x="999" y="200.5" width="9" height="9" rx="3" fill="#22d3ee"/>
+  <rect id="tsdRJ" x="1169" y="200.5" width="9" height="9" rx="3" fill="#22d3ee"/>
   <rect id="tsdR" x="1380" y="200.5" width="9" height="9" rx="3" fill="#22d3ee"/>
 
   <!-- transposase callout (chapter 2) -->
@@ -380,9 +381,10 @@ function render(t){
   const hs = (ch===0) ? 1 : ch===1 ? 1-seg(t,13.5,14) : ch===3 ? seg(t,31.6,33) : 0;   // target mark stays up until IS256 lands on it
   setOp($("hotspotG"), hs);
 
-  /* TSD markers — static hotspot pointers, never travel with the element. tsdL marks the insertion hot spot in icaC (appears as IS256 lands, gone by takeoff); tsdR marks the home-site hot spot on the genome (left behind once IS256 excises) */
+  /* TSD markers — static hotspot pointers, never travel with the element. tsdL + tsdRJ mark BOTH duplicated 8-bp copies flanking IS256 in icaC (appear as it lands, gone by takeoff); tsdR marks the home-site hot spot on the genome (left behind once IS256 excises) */
   const tsdGene = ch===1 ? easeO(seg(t,13.5,13.95)) : ch===2 ? 1 : ch===3 ? clamp((28.7-t)/0.7,0,1) : 0;
   setOp($("tsdL"), tsdGene);
+  setOp($("tsdRJ"), tsdGene);
   setOp($("tsdR"), away? .9:0);
 
   /* icaC broken state; while IS256 is in situ the gene reads as two fragments flanking it (region longer than intact) */
