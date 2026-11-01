@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--
+  IS256 × ica locus — phase-variation animation · student guide
+  Copyright (c) 2026 Sean P Nair
+
+  The content (captions, labels, visual design, and any capture of the
+  animation or this page) is © Sean P Nair.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Student guide — IS256 × ica locus phase variation</title>
+<meta name="description" content="How to read the IS256 × ica locus animation: colour key, chapter-by-chapter biology, and self-check questions.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#eaf6f2; --dim:#9db8b1; --faint:#557a72; --body:#c8ded8;
+  --mint:#5fe8c6; --mint2:#a4f5de; --amber:#ffb26b; --coral:#ff8a5c;
+  --viol:#b49bff; --viol2:#d3c4ff;
+  --line:rgba(140,220,200,.16); --card:rgba(6,19,25,.6);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#04101a;color:var(--body);
+ font-family:"Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.62;
+ background-image:radial-gradient(1100px 640px at 20% 4%,rgba(24,110,112,.14),transparent 60%),
+                  radial-gradient(900px 560px at 88% 92%,rgba(150,110,255,.09),transparent 62%),
+                  linear-gradient(180deg,#082430 0%,#051a25 42%,#030d15 100%);
+ background-attachment:fixed}
+.wrap{max-width:860px;margin:0 auto;padding:64px 30px 96px}
+a{color:var(--mint2)}
+h1{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;color:var(--ink);
+ font-size:clamp(30px,4.6vw,46px);letter-spacing:-.02em;line-height:1.04}
+h1 em{font-style:normal;color:var(--mint)}
+/* author credit — exact look of the animation's credit (script stack, muted slate), fixed px */
+.copyright{margin-top:10px;font-family:'Segoe Script','Brush Script MT','Comic Sans MS',cursive;
+ font-size:14px;line-height:1.2;color:#a3aec0}
+h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;color:var(--ink);
+ font-size:clamp(23px,3.1vw,31px);letter-spacing:-.01em;margin:56px 0 14px;
+ padding-top:22px;border-top:1px solid var(--line)}
+h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;color:var(--ink);
+ font-size:19px;margin:34px 0 8px}
+h4{font:500 10.5px "IBM Plex Mono",monospace;letter-spacing:.22em;color:var(--dim);
+ text-transform:uppercase;margin:22px 0 8px}
+p{margin:0 0 14px}
+.tag{display:block;font:500 10px "IBM Plex Mono",monospace;letter-spacing:.24em;color:var(--dim);margin-bottom:10px}
+.lede{font-size:17px;color:#d6e9e4;margin:20px 0 8px}
+.small{font-size:13.5px;color:var(--dim)}
+ul,ol{margin:0 0 14px 20px}
+li{margin-bottom:7px}
+strong{color:var(--ink);font-weight:600}
+em.term{font-style:normal;color:var(--mint2);font-weight:500}
+code,.mono{font-family:"IBM Plex Mono",monospace;font-size:.9em}
+.tc{display:inline-block;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.08em;
+ color:#04222b;background:var(--mint);border-radius:99px;padding:2px 9px;vertical-align:1px}
+.tc.v{background:var(--viol);color:#150c2e}
+/* callouts */
+.box{background:var(--card);border:1px solid var(--line);border-left:2px solid var(--mint);
+ border-radius:0 10px 10px 0;padding:16px 20px;margin:20px 0}
+.box.v{border-left-color:var(--viol)}
+.box.warn{border-left-color:var(--amber)}
+.box p:last-child{margin-bottom:0}
+.box h4{margin-top:0}
+/* figures */
+figure{margin:22px 0 26px}
+figure img{display:block;width:100%;border:1px solid var(--line);border-radius:10px;background:#eef3fa}
+figcaption{font-size:12.5px;color:var(--dim);margin-top:9px;line-height:1.55}
+figcaption b{color:var(--body);font-weight:600}
+/* key table */
+.key{width:100%;border-collapse:collapse;margin:16px 0 8px;font-size:13.5px}
+.key th{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.18em;color:var(--dim);
+ text-transform:uppercase;text-align:left;padding:0 10px 9px 0;border-bottom:1px solid var(--line)}
+.key td{padding:11px 10px 11px 0;border-bottom:1px solid rgba(140,220,200,.08);vertical-align:top}
+.key td:first-child{width:64px}
+.key td:nth-child(2){color:var(--ink);font-weight:600;white-space:nowrap}
+.sw{display:block;width:46px;height:20px;border-radius:5px;border:1px solid rgba(255,255,255,.13)}
+.gl{display:block;width:46px;height:20px}
+.gl svg{width:100%;height:100%;overflow:visible}
+/* comparison / plain tables */
+table.t{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+table.t th{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.16em;color:var(--dim);
+ text-transform:uppercase;text-align:left;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
+table.t td{padding:10px 12px 10px 0;border-bottom:1px solid rgba(140,220,200,.08);vertical-align:top}
+/* questions */
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:14px 18px;margin:11px 0}
+details summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::before{content:"?";display:inline-grid;place-items:center;width:20px;height:20px;
+ border-radius:50%;background:rgba(95,232,198,.14);color:var(--mint);
+ font:500 11px "IBM Plex Mono",monospace;margin-right:11px;vertical-align:-3px}
+details[open] summary{margin-bottom:10px}
+details .ans{font-size:13.5px;border-top:1px solid var(--line);padding-top:11px}
+details .ans p:last-child{margin-bottom:0}
+/* nav */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:30px 0 10px}
+.toc h4{margin-top:0}
+.toc ol{margin:0 0 0 18px;font-size:14px}
+.toc a{text-decoration:none;color:var(--body)}
+.toc a:hover{color:var(--mint2)}
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+ font-size:12.5px;color:var(--faint)}
+/* ---------------- print ---------------- */
+@media print{
+  @page{margin:16mm 14mm}
+  body{background:#fff !important;color:#16211f;background-image:none}
+  .wrap{max-width:none;padding:0}
+  h1,h2,h3,strong,.key td:nth-child(2),details summary{color:#0b1614}
+  h1 em{color:#0b6b56}
+  h2{border-top:1px solid #ccd8d5;page-break-after:avoid}
+  h3,h4{page-break-after:avoid}
+  h4{color:#4a5f5a}
+  .tag,.small,figcaption,footer,.key th,table.t th{color:#5a6d68}
+  figcaption b{color:#16211f}
+  .lede{color:#16211f}
+  em.term{color:#0b6b56}
+  .copyright{color:#7a8699}
+  .box{background:#f4f8f7;border:1px solid #ccd8d5;border-left:2px solid #0b6b56;page-break-inside:avoid}
+  .box.v{border-left-color:#6b3fd4}
+  .box.warn{border-left-color:#a86b1f}
+  figure{page-break-inside:avoid}
+  figure img{border:1px solid #ccd8d5;width:auto;max-width:100%;max-height:86mm;background:#fff}
+  .key td,table.t td{border-bottom:1px solid #e3ebe9}
+  details{background:#f4f8f7;border:1px solid #ccd8d5;page-break-inside:avoid}
+  details .ans{border-top:1px solid #ccd8d5}
+  details summary::before{background:#e3ebe9;color:#0b6b56}
+  .toc{background:#f4f8f7;border:1px solid #ccd8d5}
+  .toc a{color:#16211f}
+  .tc{background:#0b6b56;color:#fff}
+  .tc.v{background:#6b3fd4;color:#fff}
+  .noprint{display:none}
+  .pagebreak{page-break-before:always}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<span class="tag">STUDENT GUIDE · READ ALONGSIDE THE ANIMATION</span>
+<h1>How to read the <em>IS256 × ica locus</em> animation</h1>
+<div class="copyright">© Sean P Nair</div>
+
+<p class="lede">One film, one cell, one decision made twice. The insertion sequence IS256 jumps
+into the <i>icaC</i> gene of <em>S. aureus</em>, switching biofilm formation off; it then jumps
+out again, restoring it exactly. The whole film is a 36-second loop in four nine-second
+chapters — ON, JUMP IN, OFF, JUMP OUT. Timecodes like <span class="tc">0:17</span> are the
+animation's own clock: drag the timeline scrubber to them, or click a chapter dot.</p>
+
+<p class="small noprint">The film: <a href="index.html">IS256 phase variation in the ica locus</a>
+(single HTML file — open it and press play; also available as
+<a href="is256_ica_loop.mp4">is256_ica_loop.mp4</a>). Pause with <code>Space</code> or a click,
+scrub anywhere in the loop with the timeline slider, jump chapters with the four dots, and set
+0.5×–2× speed with the slider. Sound is off until you first tap — five short synthesized cues
+mark chapter changes and key events; the 🔊/🔇 button mutes them. For a single frozen frame use
+<code>index.html?t=17.5</code>.</p>
+
+<div class="toc noprint">
+  <h4>Contents</h4>
+  <ol>
+    <li><a href="#key">The colour key</a></li>
+    <li><a href="#chapters">Chapter by chapter</a></li>
+    <li><a href="#simple">Where the animation simplifies</a></li>
+    <li><a href="#check">Check yourself</a></li>
+  </ol>
+</div>
+
+<h2 id="key">1 · The colour key</h2>
+
+<div class="box">
+<h4>The one rule that decodes everything</h4>
+<p><strong>Two colour stories run in parallel.</strong> Up top, colour tells you <em>whose DNA it is
+and where it sits</em>: blue arrows are the host's <i>ica</i> genes, and the red block is IS256 —
+watch which site it occupies. Down in the cell, colour tells you <em>the chemical state of the
+polymer</em>: dark-navy beads are acetylated GlcNAc inside the cell; they turn green at exactly one
+moment — when a unit passes <strong>IcaB on the way out</strong>. When a bead changes colour,
+chemistry has happened: that is deacetylation, and it is what makes surface PNAG different from
+the chain being built inside.</p>
+</div>
+
+<h3>DNA and the element</h3>
+<table class="key">
+<tr><th></th><th>What it is</th><th>Where you see it</th></tr>
+<tr><td><span class="sw" style="background:#4d7cfe"></span></td><td>ica operon genes</td>
+  <td>The blue arrows along the top: <i>icaA, icaD, icaB, icaC</i>, one co-transcribed unit. While
+  IS256 is in situ, the <i>icaC</i> arrow splits into two faded fragments flanking it — the region
+  gets longer than the intact gene.</td></tr>
+<tr><td><span class="sw" style="background:#8b5cf6"></span></td><td>IcaR repressor</td>
+  <td>The violet arrow and small dimer on its operator, between <i>icaR</i> and <i>icaA</i>. It keeps
+  the operon off until released; this film runs with the operon already ON.</td></tr>
+<tr><td><span class="sw" style="background:#f97362"></span></td><td>IS256 element</td>
+  <td>The red block with dark-red end caps, ~1.3 kb in reality. Starts at its home site (right),
+  flies to the <i>icaC</i> hot spot, then back.</td></tr>
+<tr><td><span class="sw" style="background:#22d3ee"></span></td><td>TSD — target-site duplication</td>
+  <td>The small cyan dots. Two appear at the two junctions of inserted IS256 (8 bp duplicated once
+  per end); one marks the hot spot on the home site while the element is away.</td></tr>
+<tr><td><span class="sw" style="background:#cbd5e1"></span></td><td>Surface</td>
+  <td>The grey bar at the bottom — a medical-device surface. Biofilm cells sit on it; when PNAG
+  disappears they drift off.</td></tr>
+</table>
+
+<h3>The polymer and its machinery</h3>
+<table class="key">
+<tr><th></th><th>What it is</th><th>What it does, and when</th></tr>
+<tr><td><span class="sw" style="background:#1e3a8a"></span></td><td>PNAG (GlcNAc, inside)</td>
+  <td>The dark-navy beads linked by a backbone line — acetylated monomers of the chain being built.
+  Inside the cell only.</td></tr>
+<tr><td><span class="sw" style="background:#34d399"></span></td><td>Deacetylated PNAG (coat)</td>
+  <td>The green beads — the same units after IcaB strips their acetyl groups on exit. Also the coat
+  rings around the cell and the soft halos on biofilm cells.</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><rect x="15" y="3" width="16" height="14" rx="4" fill="#14b8a6"/></svg></span></td>
+  <td>IcaA·D — transferase</td>
+  <td>The teal membrane block where the chain is built, fed by UDP-GlcNAc. A peristaltic beat every
+  couple of seconds pushes one new unit in at the growing end and advances the whole strand.</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><rect x="15" y="3" width="16" height="14" rx="4" fill="#8b5cf6"/></svg></span></td>
+  <td>IcaC — the channel</td>
+  <td>The violet box straddling the peptidoglycan wall. The only door out of the cell for this
+  polymer; a red ✕ appears over it while IS256 sits in its gene.</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><rect x="13" y="4" width="20" height="12" rx="6" fill="#fbbf24"/></svg></span></td>
+  <td>IcaB — deacetylase</td>
+  <td>The amber block sitting <em>outside</em> the cell. It works as each unit crosses out past it,
+  and flashes a halo when it does. Navy→green happens here, not at the membrane.</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><rect x="9" y="5" width="28" height="10" rx="5" fill="#ede9fe" stroke="#c4b5fd"/></svg></span></td>
+  <td>UDP-GlcNAc</td>
+  <td>The lavender pill — the substrate supply feeding into IcaA·D. Present in every chapter.</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><line x1="8" y1="10" x2="38" y2="10" stroke="#f59e0b" stroke-width="2.6" stroke-dasharray="7 5"/></svg></span></td>
+  <td>icaADBC mRNA</td>
+  <td>The amber dashed line flowing from the operon to the cell — and it keeps flowing in every
+  chapter, even while <i>icaC</i> is broken. It never gets a ✕ (no polar effect).</td></tr>
+<tr><td><span class="gl"><svg viewBox="0 0 46 20"><g stroke="#ef4444" stroke-width="3" stroke-linecap="round"><line x1="15" y1="4" x2="31" y2="16"/><line x1="31" y1="4" x2="15" y2="16"/></g></svg></span></td>
+  <td>Blocked function</td>
+  <td>The red ✕. Over the downstream <i>icaC</i> fragment and over the IcaC channel while IS256 is in
+  situ; beside the PIA/PNAG chip when the coat is gone.</td></tr>
+</table>
+
+<div class="box warn">
+<h4>Two things worth telling apart</h4>
+<p><strong><i>icaC</i> (lowercase, top of frame) and IcaC (capitalised, in the cell wall) are not
+the same object.</strong> The gene is DNA; the protein is the channel it encodes. Inserting IS256
+breaks the <em>gene</em>, but a working channel needs a functional transcript to be made — and on
+excision the reverse lag shows: the gene reads as one closed arrow the instant IS256 takes off, yet
+the ✕ stays over the IcaC channel until the element lands back home. Genetics can change faster than
+the protein machinery does.</p>
+</div>
+
+<h2 id="chapters">2 · Chapter by chapter</h2>
+<p><em>S. aureus</em>, one cell and its neighbourhood on a device surface. Four chapters, nine
+seconds each; the loop is seamless — frame 0 is identical to frame 36.</p>
+
+<h3>01 · ON <span class="tc">0:00</span></h3>
+<figure><img src="docs/guide/ica-01.png" alt="Steady ON state: a beaded chain threads from the IcaA·D transferase through the IcaC channel past IcaB; green coat rings surround the cell and biofilm cells with halos sit on the device surface">
+<figcaption><b>0:05</b> — steady state. The chain runs from IcaA·D (teal) down through the IcaC
+channel (violet) past IcaB (amber, outside); navy inside, green from IcaB's exit on. The coat rings
+are layered, and PNAG⁺ cells with halos are stuck to the device surface.</figcaption></figure>
+<p>The intact <i>icaADBC</i> operon is transcribed — the amber dashed mRNA line runs from the gene
+arrows into the cell throughout. The IcaA·D transferase builds a chain of β-(1→6)-linked GlcNAc
+units from UDP-GlcNAc, adding one at the growing end with each peristaltic beat; the whole strand
+advances in lockstep so every bead travels the same path: anchor → channel → exit. Units stay navy
+(acetylated) while inside and turn green (deacetylated) exactly as they cross out past IcaB — a halo
+flash marks each conversion. Exported units join the PNAG coat, which thickens layer by layer during
+the chapter; coated cells adhere to the device surface and stack into a biofilm.</p>
+<p><b>Look for:</b> the navy→green switch happens at IcaB, not at the membrane — and in steady state
+exactly three trailing beads are green. The coat rings advance one bead-pitch per beat, in step with
+the secreted chain.</p>
+
+<h3>02 · JUMP IN <span class="tc">0:09</span></h3>
+<figure><img src="docs/guide/ica-02.png" alt="IS256 seated inside the split icaC gene with cyan TSD dots at both junctions; home site left as a dashed ghost; the cell shows only a short trapped chain stub and free-floating cells">
+<figcaption><b>0:17</b> — IS256 (red) is seated in the <i>icaC</i> hot spot, which now reads as two
+faded fragments flanking it. The small cyan TSD dots mark the 8 bp duplicated at each junction; the
+home site on the right remains as a dashed ghost with nicks. Inside the cell only a short stub of
+chain is left — "short oligomers (&lt;20 units) — can't be exported".</figcaption></figure>
+<p>The transposase <span class="mono">tnp256</span> cuts IS256 out of its home site and carries it,
+cut-and-paste, to the documented hot spot inside <i>icaC</i>. Insertion duplicates 8 bp of target DNA
+once at each end — so two identical TSD copies flank the element (the two cyan dots), and the gene is
+not replaced but <em>split</em>: the icaC–IS256–icaC region is longer than the original gene.</p>
+<p>Here is the counterintuitive part. Because <i>icaC</i> is the <strong>last</strong> gene of the
+operon, breaking it has no polar effect: transcription keeps running (the amber pill says so —
+"icaADBC still transcribed — only icaC lost"), IcaA·D and IcaB stay up, and chain synthesis continues.
+But with no functional IcaC channel there is no door out of the cell, so the chain retracts to a short
+trapped oligomer. The coat fades, cells lose adhesion and drift free.</p>
+<div class="box v">
+<p><strong>The trap is at export, not synthesis.</strong> If you saw "operon off" written on this
+chapter it would be wrong: the arrows are lit, the mRNA line flows, substrate keeps feeding in. The
+polymer is still being made — it simply cannot leave. That distinction (gene intact vs protein
+functional) is what makes the JUMP OUT chapter's lag meaningful.</p>
+</div>
+
+<h3>03 · OFF <span class="tc">0:18</span></h3>
+<figure><img src="docs/guide/ica-03.png" alt="Steady OFF state: IS256 in situ with both TSD dots, smooth cells drifting free without halos, bare device surface, PIA/PNAG minus chip">
+<figcaption><b>0:24</b> — the settled OFF phenotype. No coat rings, no halos: the cells are smooth and
+free-floating (planktonic) above a bare surface. The PIA/PNAG⁻ chip carries a red ✕ — "no PNAG → no
+adhesion".</figcaption></figure>
+<p>This is the phase-variant phenotype: smooth, non-adherent, free-drifting cells. In a real culture
+these are not a separate species or a new mutation lineage — they are the same clone with IS256 in
+<i>icaC</i>, and they can revert at any division.</p>
+<div class="box warn">
+<p><strong>Do not read "OFF" as "the operon is off".</strong> The blue gene arrows stay lit, the amber
+mRNA line keeps flowing, UDP-GlcNAc still feeds IcaA·D. Everything upstream of export works; only the
+IcaC channel is missing. If a question asks where synthesis is blocked in this chapter, the answer is
+<em>the membrane exit</em>, not transcription or polymerisation.</p>
+</div>
+
+<h3>04 · JUMP OUT <span class="tc">0:27</span></h3>
+<figure><img src="docs/guide/ica-04.png" alt="IS256 flying home mid-arc while icaC already reads as one solid arrow again, with the excision callout; the cell is still OFF-state">
+<figcaption><b>0:29</b> — IS256 in flight home. The <i>icaC</i> arrow has closed into a single gene
+again the instant the element took off ("precise excision — IS256 + the duplicated 8-bp copies leave;
+original sequence restored"), but the ✕ still sits over the IcaC channel below.</figcaption></figure>
+<p>Precise excision cuts out IS256 <em>together with one copy of each duplicated 8-bp pair</em>, so
+the original single copy remains and <i>icaC</i> is restored base-for-base — no scar, no leftover. The
+cyan TSD dots disappear from the gene as the element departs: they leave with it.</p>
+<p>Note the lag: the gene reads intact immediately at take-off, but the channel ✕ persists until IS256
+lands home — the broken protein machinery turns over more slowly than the genome changes. Once the
+channel reopens, the chain re-threads anchor-first through IcaC, the coat rings rebuild layer by
+layer, and the cells return to the surface one by one as their halos bloom.</p>
+<figure><img src="docs/guide/ica-05.png" alt="Restored state: IS256 back at its home site with the hot-spot marker, full chain threaded through IcaC again, coat rings rebuilding and biofilm cells returning to the device surface">
+<figcaption><b>0:34</b> — restored and regrown. IS256 is home (hot-spot mark over <i>icaC</i>), the full
+chain threads IcaC again, coat rings are rebuilding, and the biofilm is reassembling on the device.
+A few seconds later this frame is identical to 0:00 — the loop closes.</figcaption></figure>
+<div class="box v">
+<p><strong>This is phase variation in a real infection.</strong> In <em>S. aureus</em>, spontaneous IS256
+insertion into <i>icaC</i> yields PIA/PNAG-negative variants that revert by precise excision at roughly
+1–5×10⁻⁹ per cell division (Kiem et al. 2004, strain SA204); in <em>S. epidermidis</em>, ~30% of
+PIA-negative isolates carry IS256 in <i>icaA/icaC</i> (Ziebuhr et al. 1999). One clone, two phenotypes,
+switching both ways — a population hedge: while the PNAG⁺ majority builds biofilm on devices, the rare
+PNAG⁻ minority stays free-floating, ready to switch back when conditions change.</p>
+</div>
+
+<h2 id="simple" class="pagebreak">3 · Where the animation simplifies</h2>
+<p class="small">Most teaching animations are simplified somewhere. These are the places this one is,
+so the exaggerations are not mistaken for scale:</p>
+<ul>
+<li><strong>The element is drawn huge.</strong> IS256 is ~1.3 kb inside a ~2.8 Mb chromosome; at true
+scale you could not see it or its 8-bp duplications. The cyan TSD dots are markers, not to-scale DNA.</li>
+<li><strong>One cell's fate is shown as the whole story.</strong> Real phase variation is stochastic and
+population-level: each division carries ~10⁻⁹ odds of insertion or excision, so PNAG⁺ and PNAG⁻ cells
+coexist in one culture. The film follows a single representative cell through both directions.</li>
+<li><strong>The chain is a deterministic conveyor.</strong> A constant-length rope advancing one unit per
+beat stands in for stochastic polymerisation and transport. What it keeps exact is the teaching point:
+deacetylation happens at IcaB, on exit — never inside the cell or at the membrane.</li>
+<li><strong>Seven biofilm cells</strong> are drawn for legibility; a real film holds thousands of cells in
+a hydrated PNAG matrix. The soft halos stand in for that corona — there is no solid "matrix blob".</li>
+<li><strong>Time is compressed and even by design.</strong> Each chapter gets nine seconds regardless of
+how long the state lasts in reality; an OFF cell can stay OFF for generations, but the film moves on so
+you see the round trip.</li>
+</ul>
+
+<h2 id="check">4 · Check yourself</h2>
+<p class="small">Answers are hidden — have a go first. If you can answer these, you have
+followed the animation.</p>
+
+<details><summary>IS256 sits inside icaC and the operon is still transcribed. Why has biofilm formation stopped anyway?</summary>
+<div class="ans"><p>Because <i>icaC</i> is the last gene of the co-transcribed operon, so breaking it has no
+polar effect on <i>icaA/icaD/icaB</i> — those proteins are still made. But IcaC is the channel that
+externalises the polymer: with no functional channel the chain cannot leave the cell and retracts to a
+short trapped oligomer. No coat, no adhesion, no biofilm. The block is at export, not synthesis.</p></div>
+</details>
+
+<details><summary>What are the two small cyan dots flanking inserted IS256, and why are there exactly two?</summary>
+<div class="ans"><p>They mark target-site duplications (TSDs). Cut-and-paste transposition cuts between two
+imperfectly repeated 8-bp sequences at each junction, so the target sequence is duplicated once per end —
+two identical copies flank the inserted element. Watch them both disappear from <i>icaC</i> when IS256
+excises: they leave with it.</p></div>
+</details>
+
+<details><summary>Why does precise excision restore icaC exactly, instead of leaving a scar or losing a few bases?</summary>
+<div class="ans"><p>Because insertion duplicated the target 8 bp once at each end, the in-situ region holds
+two copies of that sequence. Precise excision removes IS256 together with one copy of each duplication,
+leaving the original single copy in place — so the restored gene is base-for-base identical to the
+pre-insertion sequence.</p></div>
+</details>
+
+<details><summary>Navy beads and green beads are the same polymer. What changed, where exactly did it change, and why does that matter?</summary>
+<div class="ans"><p>The acetyl groups: navy is acetylated GlcNAc (PIA-like), green is deacetylated PNAG. The
+change happens at IcaB — an enzyme sitting <em>outside</em> the cell, acting as each unit crosses out past
+the IcaC channel mouth. It matters because surface chemistry differs from intracellular chemistry: the
+same chain is only "PNAG" once it has been exported and deacetylated.</p></div>
+</details>
+
+<details><summary>In JUMP OUT, which comes back first — the gene or the channel? What does that tell you?</summary>
+<div class="ans"><p>The gene: <i>icaC</i> reads as one closed arrow the instant IS256 takes off, while the ✕
+over the IcaC channel lags until the element lands home. The genome changes instantly; the protein
+machinery has to turn over first. Phenotype can lag genotype — a general lesson in how cells work.</p></div>
+</details>
+
+<details><summary>A single clone of S. aureus grows both biofilm-forming adherent cells and smooth free-floating cells. Explain that without invoking two different mutations.</summary>
+<div class="ans"><p>Phase variation: IS256 spontaneously inserts into <i>icaC</i> (PNAG⁻, smooth) and precisely
+excises out of it again (PNAG⁺ restored), at ~10⁻⁹ per cell division in each direction. One genotype, two
+reversible phenotypes — the population carries both at once as a hedge, so whichever conditions favour is
+already represented.</p></div>
+</details>
+
+<details><summary>You need to show that deacetylation happens outside the cell, not inside. What in the film proves it?</summary>
+<div class="ans"><p>IcaB is drawn on the outer face of the membrane, and the colour split follows IcaB's exit,
+not the membrane: beads stay navy across the whole peptidoglycan wall and channel, then turn green — with a
+halo flash at each conversion — only once they have crossed out past IcaB. Even in steady state the last
+three trailing units are green while everything upstream is navy.</p></div>
+</details>
+
+<footer>
+<p><b>IS256 × ica locus</b> · phase-variation animation · student guide<br>
+<span class="noprint"><a href="index.html">Back to the animation</a> · full references in <a href="README.md">README.md</a></span><br>
+Simplified for teaching — species-specific facts verified against primary literature (see README).</p>
+</footer>
+
+</div>
+<script>
+window.addEventListener('beforeprint', function () {
+  var d = document.querySelectorAll('details');
+  for (var i = 0; i < d.length; i++) d[i].open = true;
+});
+</script>
+</body>
+</html>
