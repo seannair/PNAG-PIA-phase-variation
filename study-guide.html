@@ -17,18 +17,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#eaf6f2; --dim:#9db8b1; --faint:#557a72; --body:#c8ded8;
-  --mint:#5fe8c6; --mint2:#a4f5de; --amber:#ffb26b; --coral:#ff8a5c;
-  --viol:#b49bff; --viol2:#d3c4ff;
-  --line:rgba(140,220,200,.16); --card:rgba(6,19,25,.6);
+  --ink:#f0f3ff; --dim:#9aa5c8; --faint:#5d6890; --body:#c2cbe7;
+  --mint:#4d7cfe; --mint2:#9db8ff; --amber:#ffb26b; --coral:#f97362;
+  --viol:#8b5cf6; --viol2:#c4b5fd;
+  --line:rgba(120,150,255,.16); --card:rgba(13,19,38,.6);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:#04101a;color:var(--body);
+body{background:#070b16;color:var(--body);
  font-family:"Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.62;
- background-image:radial-gradient(1100px 640px at 20% 4%,rgba(24,110,112,.14),transparent 60%),
-                  radial-gradient(900px 560px at 88% 92%,rgba(150,110,255,.09),transparent 62%),
-                  linear-gradient(180deg,#082430 0%,#051a25 42%,#030d15 100%);
+ background-image:radial-gradient(1100px 640px at 20% 4%,rgba(77,124,254,.13),transparent 60%),
+                  radial-gradient(900px 560px at 88% 92%,rgba(139,92,246,.10),transparent 62%),
+                  linear-gradient(180deg,#0b1226 0%,#080d1c 42%,#05070f 100%);
  background-attachment:fixed}
 .wrap{max-width:860px;margin:0 auto;padding:64px 30px 96px}
 a{color:var(--mint2)}
@@ -47,7 +47,7 @@ h4{font:500 10.5px "IBM Plex Mono",monospace;letter-spacing:.22em;color:var(--di
  text-transform:uppercase;margin:22px 0 8px}
 p{margin:0 0 14px}
 .tag{display:block;font:500 10px "IBM Plex Mono",monospace;letter-spacing:.24em;color:var(--dim);margin-bottom:10px}
-.lede{font-size:17px;color:#d6e9e4;margin:20px 0 8px}
+.lede{font-size:17px;color:#dfe6fb;margin:20px 0 8px}
 .small{font-size:13.5px;color:var(--dim)}
 ul,ol{margin:0 0 14px 20px}
 li{margin-bottom:7px}
@@ -55,13 +55,13 @@ strong{color:var(--ink);font-weight:600}
 em.term{font-style:normal;color:var(--mint2);font-weight:500}
 code,.mono{font-family:"IBM Plex Mono",monospace;font-size:.9em}
 .tc{display:inline-block;font:500 11px "IBM Plex Mono",monospace;letter-spacing:.08em;
- color:#04222b;background:var(--mint);border-radius:99px;padding:2px 9px;vertical-align:1px}
-.tc.v{background:var(--viol);color:#150c2e}
+ color:#04263a;background:#22d3ee;border-radius:99px;padding:2px 9px;vertical-align:1px}
+.tc.v{background:var(--viol);color:#f3efff}
 /* callouts */
 .box{background:var(--card);border:1px solid var(--line);border-left:2px solid var(--mint);
  border-radius:0 10px 10px 0;padding:16px 20px;margin:20px 0}
 .box.v{border-left-color:var(--viol)}
-.box.warn{border-left-color:var(--amber)}
+.box.warn{border-left-color:var(--coral)}
 .box p:last-child{margin-bottom:0}
 .box h4{margin-top:0}
 /* figures */
@@ -73,7 +73,7 @@ figcaption b{color:var(--body);font-weight:600}
 .key{width:100%;border-collapse:collapse;margin:16px 0 8px;font-size:13.5px}
 .key th{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.18em;color:var(--dim);
  text-transform:uppercase;text-align:left;padding:0 10px 9px 0;border-bottom:1px solid var(--line)}
-.key td{padding:11px 10px 11px 0;border-bottom:1px solid rgba(140,220,200,.08);vertical-align:top}
+.key td{padding:11px 10px 11px 0;border-bottom:1px solid rgba(120,150,255,.09);vertical-align:top}
 .key td:first-child{width:64px}
 .key td:nth-child(2){color:var(--ink);font-weight:600;white-space:nowrap}
 .sw{display:block;width:46px;height:20px;border-radius:5px;border:1px solid rgba(255,255,255,.13)}
@@ -83,14 +83,14 @@ figcaption b{color:var(--body);font-weight:600}
 table.t{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
 table.t th{font:500 10px "IBM Plex Mono",monospace;letter-spacing:.16em;color:var(--dim);
  text-transform:uppercase;text-align:left;padding:0 12px 9px 0;border-bottom:1px solid var(--line)}
-table.t td{padding:10px 12px 10px 0;border-bottom:1px solid rgba(140,220,200,.08);vertical-align:top}
+table.t td{padding:10px 12px 10px 0;border-bottom:1px solid rgba(120,150,255,.09);vertical-align:top}
 /* questions */
 details{background:var(--card);border:1px solid var(--line);border-radius:10px;
  padding:14px 18px;margin:11px 0}
 details summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;list-style:none}
 details summary::-webkit-details-marker{display:none}
 details summary::before{content:"?";display:inline-grid;place-items:center;width:20px;height:20px;
- border-radius:50%;background:rgba(95,232,198,.14);color:var(--mint);
+ border-radius:50%;background:rgba(77,124,254,.16);color:var(--mint);
  font:500 11px "IBM Plex Mono",monospace;margin-right:11px;vertical-align:-3px}
 details[open] summary{margin-bottom:10px}
 details .ans{font-size:13.5px;border-top:1px solid var(--line);padding-top:11px}
@@ -109,27 +109,27 @@ footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
   body{background:#fff !important;color:#16211f;background-image:none}
   .wrap{max-width:none;padding:0}
   h1,h2,h3,strong,.key td:nth-child(2),details summary{color:#0b1614}
-  h1 em{color:#0b6b56}
+  h1 em{color:#2a4bd7}
   h2{border-top:1px solid #ccd8d5;page-break-after:avoid}
   h3,h4{page-break-after:avoid}
   h4{color:#4a5f5a}
   .tag,.small,figcaption,footer,.key th,table.t th{color:#5a6d68}
   figcaption b{color:#16211f}
   .lede{color:#16211f}
-  em.term{color:#0b6b56}
+  em.term{color:#2a4bd7}
   .copyright{color:#7a8699}
-  .box{background:#f4f8f7;border:1px solid #ccd8d5;border-left:2px solid #0b6b56;page-break-inside:avoid}
+  .box{background:#f4f8f7;border:1px solid #ccd8d5;border-left:2px solid #2a4bd7;page-break-inside:avoid}
   .box.v{border-left-color:#6b3fd4}
-  .box.warn{border-left-color:#a86b1f}
+  .box.warn{border-left-color:#c9502f}
   figure{page-break-inside:avoid}
   figure img{border:1px solid #ccd8d5;width:auto;max-width:100%;max-height:86mm;background:#fff}
   .key td,table.t td{border-bottom:1px solid #e3ebe9}
   details{background:#f4f8f7;border:1px solid #ccd8d5;page-break-inside:avoid}
   details .ans{border-top:1px solid #ccd8d5}
-  details summary::before{background:#e3ebe9;color:#0b6b56}
+  details summary::before{background:#e3ebe9;color:#2a4bd7}
   .toc{background:#f4f8f7;border:1px solid #ccd8d5}
   .toc a{color:#16211f}
-  .tc{background:#0b6b56;color:#fff}
+  .tc{background:#2a4bd7;color:#fff}
   .tc.v{background:#6b3fd4;color:#fff}
   .noprint{display:none}
   .pagebreak{page-break-before:always}
@@ -396,6 +396,30 @@ already represented.</p></div>
 not the membrane: beads stay navy across the whole peptidoglycan wall and channel, then turn green — with a
 halo flash at each conversion — only once they have crossed out past IcaB. Even in steady state the last
 three trailing units are green while everything upstream is navy.</p></div>
+</details>
+
+<details><summary>The film shows a purple repressor (IcaR) sitting upstream, between icaR and icaA. How does one small protein switch the whole locus on and off?</summary>
+<div class="ans"><p>All five genes are read as <em>one</em> mRNA: <i>icaADBC</i> is a single co-transcribed operon driven by one promoter in that intergenic region, where IcaR binds its 28-bp operator. So when the repressor sits on the DNA no transcript is made and none of the machinery — IcaA·D, IcaB or IcaC — exists; when it leaves, the whole line comes back together at once. Notice this is a different lever from IS256: IcaR controls whether the genes are <em>read</em> (transcriptional control), while IS256 breaks one gene's product structurally.</p></div>
+</details>
+
+<details><summary>Every bead on the rope is the same sugar, copied over and over. Which sugar — and what hands it to the transferase?</summary>
+<div class="ans"><p>Glucosamine (GlcNAc), linked β-(1→6). The IcaA·D box at the top of the cell adds one unit per beat from <em>UDP-GlcNAc</em>, the pill feeding into it — a nucleotide-sugar donor. And the transferase needs both partners: IcaA on its own transfers poorly, so IcaD is its required accessory subunit (which is why the film always draws them as one box).</p></div>
+</details>
+
+<details><summary>In OFF, short chains still form inside the cell but never get long. What can the transferase do on its own, and what needs the channel?</summary>
+<div class="ans"><p>IcaA·D by itself builds only <em>short</em> oligomers — under ~20 units (the film's trapped three-bead stub is that limit, drawn small for legibility). Extending them into full-length polymer and pushing it out across the membrane are both jobs of the IcaC channel. So in OFF synthesis keeps happening but nothing leaves: production without export.</p></div>
+</details>
+
+<details><summary>The film marks an "IS256 hot spot" over icaC. How sure can we be about why IS256 keeps landing there?</summary>
+<div class="ans"><p>We're very sure it <em>does</em> land there — in S. aureus SA204 the PIA-negative variant carries IS256 inside <i>icaC</i>, and in S. epidermidis roughly a third of PIA-negative isolates have IS256 in the ica locus (Kiem 2004; Ziebuhr 1999). But why this site is preferred is not fully explained — it's a documented pattern, not an established mechanism. The film shows what we've observed; "hot spot" labels a question that is still open.</p></div>
+</details>
+
+<details><summary>Throughout ON the chain looks exactly the same length even though polymer is being made continuously. Where do new units enter, and where do old ones leave?</summary>
+<div class="ans"><p>Each peristaltic beat pops a fresh unit in at the growing end beside IcaA·D while the tip unit exits through IcaC toward the coat — production equals export, so net length stays constant. That's why the film reads as <em>flow</em> (a conveyor) rather than grow-then-shrink: if synthesis stopped you would see retraction; if export failed you would see a chain growing trapped inside.</p></div>
+</details>
+
+<details><summary>Catheter-associated S. aureus infections start with cells sticking to smooth plastic. Which chapter's state is compatible with sticking — and what would sequencing icaC from an implant strain that can't form biofilm show?</summary>
+<div class="ans"><p>The ON / PIA/PNAG⁺ state — the deacetylated PNAG coat is exactly the adhesive layer on abiotic surfaces, so it's the coated cells that colonise devices. From a non-biofilm-forming isolate you'd expect IS256 inserted in <i>icaC</i> (a ~1.3 kb PCR product across the site), with function restorable by precise excision after passage — the same reversible switch the film animates.</p></div>
 </details>
 
 <footer>
