@@ -67,7 +67,7 @@
   <text id="homeLabel" x="1385" y="168" text-anchor="middle" font-size="13" fill="#94a3b8" font-style="italic">…elsewhere in the chromosome</text>
 
   <!-- genes (rounded arrows, all transcribed left→right) -->
-  <g id="geneIcaR"><path d="M150,182 h76 l42,23 l-42,23 h-76 z" fill="#7c5cfc"/><text x="200" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaR</text></g>
+  <g id="geneIcaR"><path d="M150,182 h76 l42,23 l-42,23 h-76 z" fill="#7c5cfc"/><text x="200" y="211" text-anchor="middle" font-size="16.5" font-weight="700" font-style="italic" fill="#fff">icaR</text></g>
 
   <!-- promoter + IcaR repressor at the operator -->
   <path d="M338,196 q4,-26 30,-30 l-4,11 q-16,4 -17,15 z" fill="#f59e0b"/>
@@ -77,16 +77,16 @@
   </g>
   <text id="icaRLabel" x="296" y="252" text-anchor="middle" font-size="12.5" font-weight="700" fill="#7c3aed">IcaR</text>
 
-  <g id="geneIcaA"><path d="M420,182 h136 l54,23 l-54,23 h-136 z" fill="#4d7cfe"/><text x="509" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaA</text></g>
-  <g id="geneIcaD"><path d="M630,182 h42 l44,23 l-44,23 h-42 z" fill="#4d7cfe"/><text x="673" y="211" text-anchor="middle" font-size="15.5" font-weight="700" fill="#fff">icaD</text></g>
-  <g id="geneIcaB"><path d="M736,182 h114 l56,23 l-56,23 h-114 z" fill="#4d7cfe"/><text x="809" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaB</text></g>
-  <g id="geneIcaC"><path d="M926,182 h136 l54,23 l-54,23 h-136 z" fill="#4d7cfe"/><text x="1015" y="211" text-anchor="middle" font-size="16.5" font-weight="700" fill="#fff">icaC</text></g>
+  <g id="geneIcaA"><path d="M420,182 h136 l54,23 l-54,23 h-136 z" fill="#4d7cfe"/><text x="509" y="211" text-anchor="middle" font-size="16.5" font-weight="700" font-style="italic" fill="#fff">icaA</text></g>
+  <g id="geneIcaD"><path d="M630,182 h42 l44,23 l-44,23 h-42 z" fill="#4d7cfe"/><text x="673" y="211" text-anchor="middle" font-size="15.5" font-weight="700" font-style="italic" fill="#fff">icaD</text></g>
+  <g id="geneIcaB"><path d="M736,182 h114 l56,23 l-56,23 h-114 z" fill="#4d7cfe"/><text x="809" y="211" text-anchor="middle" font-size="16.5" font-weight="700" font-style="italic" fill="#fff">icaB</text></g>
+  <g id="geneIcaC"><path d="M926,182 h136 l54,23 l-54,23 h-136 z" fill="#4d7cfe"/><text x="1015" y="211" text-anchor="middle" font-size="16.5" font-weight="700" font-style="italic" fill="#fff">icaC</text></g>
   <!-- icaC split by the IS256 insertion (shown while in situ): two fragments flank the element, so the region is longer than the intact gene -->
   <g id="icaCSplitG" opacity="0">
     <rect x="926" y="183" width="74" height="44" rx="9" fill="#4d7cfe"/>
-    <text x="963" y="211" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">icaC</text>
+    <text x="963" y="211" text-anchor="middle" font-size="14.5" font-weight="700" font-style="italic" fill="#fff">icaC</text>
     <path d="M1174,182 h56 l38,23 l-38,23 h-56 z" fill="#4d7cfe"/>
-    <text x="1202" y="211" text-anchor="middle" font-size="14.5" font-weight="700" fill="#fff">icaC</text>
+    <text x="1202" y="211" text-anchor="middle" font-size="14.5" font-weight="700" font-style="italic" fill="#fff">icaC</text>
   </g>
   <path id="xIcaC" d="M1186,196 l32,20 M1218,196 l-32,20" stroke="#ef4444" stroke-width="7" stroke-linecap="round" fill="none"/>
 
@@ -137,7 +137,7 @@
   <text id="mrnaLblOn" x="520" y="272" text-anchor="middle" font-size="13.5" fill="#b45309"><tspan font-style="italic">icaADBC</tspan> mRNA → IcaA·D, IcaB, IcaC proteins</text>
   <g id="mrnaLblOffG">
     <rect x="826" y="284" width="390" height="30" rx="15" fill="#fffbeb" stroke="#fde68a"/>
-    <text x="1021" y="305" text-anchor="middle" font-size="14.5" font-weight="700" fill="#b45309">icaADBC still transcribed — only icaC lost</text>
+    <text x="1021" y="305" text-anchor="middle" font-size="14.5" font-weight="700" fill="#b45309"><tspan font-style="italic">icaADBC</tspan> still transcribed — only <tspan font-style="italic">icaC</tspan> lost</text>
   </g>
 </g>
 
@@ -289,7 +289,7 @@ const D = 36;                 // loop duration (s)
 const CH = [0, 9, 18, 27];    // chapter starts
 const CAPTIONS = [
   ["<b>ON</b> — intact <i>icaADBC</i> operon: IcaA·D builds the GlcNAc chain from UDP-GlcNAc,","the chain threads through IcaC; IcaB deacetylates it outside → PNAG coat → biofilm on devices."],
-  ["<b>JUMP IN</b> — transposase tnp256 cuts IS256 (~1.3 kb) out of its old site;","cut-and-paste integration lands in the <i>icaC</i> hot spot, duplicating 8 bp at each end (TSD)."],
+  ["<b>JUMP IN</b> — transposase <i>tnp256</i> cuts IS256 (~1.3 kb) out of its old site;","cut-and-paste integration lands in the <i>icaC</i> hot spot, duplicating 8 bp at each end (TSD)."],
   ["<b>OFF</b> — no functional IcaC: the polymer can't be exported.","No PNAG on the surface → smooth cells drift free; the biofilm falls apart."],
   ["<b>JUMP OUT</b> — precise excision removes IS256 together with the duplicated 8-bp","TSD copies, restoring <i>icaC</i> exactly. PIA/PNAG⁺ and biofilm return — phase variation."]
 ];
@@ -311,7 +311,7 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
 /* ---------- build legend ---------- */
 (function buildLegend(){
   const items = [
-    ["#4d7cfe","ica operon genes"],["#8b5cf6","IcaR repressor"],["#f97362","IS256 element"],
+    ["#4d7cfe",'<tspan font-style="italic">ica</tspan> operon genes'],["#8b5cf6","IcaR repressor"],["#f97362","IS256 element"],
     ["#22d3ee","TSD (8-bp duplication)"],["#1e3a8a","PNAG (GlcNAc, inside)"],["#cbd5e1","Surface"],
     ["#34d399","deacetylated PNAG (coat)"]
   ];
@@ -319,7 +319,7 @@ let seekT      = P.has("t") ? clamp(parseFloat(P.get("t"))||0, 0, D-0.001) : nul
   for(let i=0;i<items.length;i++){
     if(i===3){ x=980; y=128; } else if(i===6){ x=980; y=150; }
     const [c,label]=items[i];
-    const w = label.length*7.4 + 34;
+    const w = label.replace(/<[^>]*>/g,"").length*7.4 + 34;   // width from visible text (gene name is an italic tspan)
     g.innerHTML += `<rect x="${x}" y="${y-15}" width="${w}" height="24" rx="12" fill="#ffffff" opacity=".82"/>`+
       `<circle cx="${x+15}" cy="${y-3}" r="7" fill="${c}"/>`+
       `<text x="${x+29}" y="${y+2}" font-size="13" fill="#475569">${label}</text>`;
