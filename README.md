@@ -4,9 +4,16 @@ A single-file, responsive HTML/SVG animation of the insertion sequence **IS256**
 
 No dependencies — open `index.html` in any modern browser. Works on desktop and phone (uniform SVG scaling, viewBox 1600×900), including straight from the filesystem (`file://`). A pre-rendered MP4 of the full loop is available as `is256_ica_loop.mp4`.
 
-![The ON chapter — chain threading through IcaC, PNAG coat, biofilm on the device](docs/guide/ica-01.png)
+### **[▶ Watch it here](https://seannair.github.io/PNAG-PIA-phase-variation/)**
 
-**[Student guide](study-guide.html)** — the colour key, a chapter-by-chapter walkthrough with figures, and self-check questions. Also as a printable [PDF](docs/is256-study-guide.pdf) for handing out.
+| | | |
+|---|---|---|
+| **[Phase variation in the *ica* locus](https://seannair.github.io/PNAG-PIA-phase-variation/)** | one cell, one decision made twice — IS256 jumps in and out of *icaC* | 4 chapters · 36 s loop |
+
+**[Student guide](https://seannair.github.io/PNAG-PIA-phase-variation/study-guide.html)** — the colour key, a chapter-by-chapter walkthrough with figures, and self-check questions.
+Also as a printable [PDF](docs/is256-study-guide.pdf) for handing out.
+
+![The ON chapter — chain threading through IcaC, PNAG coat, biofilm on the device](docs/guide/ica-01.png)
 
 ## The loop (36 s, four 9-s chapters)
 
