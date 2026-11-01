@@ -2,7 +2,7 @@
 
 A single-file, responsive HTML/SVG animation of the insertion sequence **IS256** jumping in and out of the ***icaC*** gene of *Staphylococcus aureus*, switching PIA/PNAG biosynthesis and biofilm formation on and off. Combines genome dynamics (cut-and-paste transposition, 8-bp target-site duplications, precise excision) with the biology it drives (operon → transferase chain → IcaC export → PNAG coat → device biofilm). Written for teaching.
 
-No dependencies — open `index.html` in any modern browser. Works on desktop and phone (uniform SVG scaling, viewBox 1600×900), including straight from the filesystem (`file://`). A pre-rendered MP4 of the full loop is available as `is256_ica_loop.mp4`.
+No dependencies — open `index.html` in any modern browser. Works on desktop and phone (uniform SVG scaling, viewBox 1600×900), including straight from the filesystem (`file://`). A pre-rendered MP4 of the full loop is available as `is256_ica_loop.mp4`. One known limitation: the page never scrolls, so everything must live inside one screen. On phones the 16:9 scene scales down to fit — in portrait the chapter caption and controls sit clear on the letterboxed strip outside the frame, but in landscape there is no empty space left, so the fixed-size caption banner and control bar overlap the edges of the scene (and small labels are hard to read either way). For full-size labels use a tablet or desktop — or watch `is256_ica_loop.mp4`, which is exactly 16:9.
 
 ### **[▶ Watch it here](https://seannair.github.io/PNAG-PIA-phase-variation/)**
 
