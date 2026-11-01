@@ -28,6 +28,10 @@
   #prog{ position:fixed; left:0; right:0; bottom:0; height:4px; background:#dbe6f5; z-index:6; }
   #progBar{ height:100%; width:0%; background:linear-gradient(90deg,#f59e0b,#fb7185); }
   body.render-mode #ui, body.render-mode #prog{ display:none; }
+  /* chapter caption — HTML pill so it keeps a fixed CSS-px size at any window (the old scaled SVG text was illegible and overlapped the control bar) */
+  #capPill{ position:fixed; left:max(12px, env(safe-area-inset-left)); bottom:calc(64px + env(safe-area-inset-bottom)); z-index:4; max-width:min(592px, calc(100vw - 32px));
+       background:#fff; border:1px solid #c7d4ea; border-radius:14px; box-shadow:0 2px 8px rgba(15,23,42,.10); padding:9px 16px; font-size:15px; line-height:1.45; color:#0f172a; pointer-events:none; }
+  @media (max-width:560px){ #capPill{ bottom:calc(120px + env(safe-area-inset-bottom)); font-size:14px; max-width:calc(100vw - 32px); } }
 </style>
 </head>
 <body>
@@ -213,9 +217,6 @@
     <text x="1305" y="787" text-anchor="middle" font-size="13.5" font-weight="700" fill="#dc2626">no PNAG → no adhesion</text>
   </g>
 
-  <!-- chapter caption -->
-  <rect x="80" y="846" width="592" height="52" rx="14" fill="#ffffff" opacity=".92" stroke="#dbe6f5"/>
-  <text id="capText" x="376" y="867" text-anchor="middle" font-size="14" fill="#334155"></text>
 </g>
 
 <!-- ================= DEVICE / BIOFILM ZONE ================= -->
@@ -264,6 +265,7 @@
 <text id="badge" x="1520" y="890" text-anchor="end" font-size="13" fill="#64748b"></text>
 </svg>
 
+<div id="capPill"></div>
 <div id="ui">
   <button id="playBtn" type="button">⏸ Pause</button>
   <div id="dots"></div>
@@ -286,10 +288,10 @@
 const D = 36;                 // loop duration (s)
 const CH = [0, 9, 18, 27];    // chapter starts
 const CAPTIONS = [
-  ["ON — intact <tspan font-style='italic'>icaADBC</tspan> operon: IcaA·D builds the GlcNAc chain from UDP-GlcNAc,","the chain threads through IcaC; IcaB deacetylates it outside → PNAG coat → biofilm on devices."],
-  ["JUMP IN — transposase tnp256 cuts IS256 (~1.3 kb) out of its old site;","cut-and-paste integration lands in the <tspan font-style='italic'>icaC</tspan> hot spot, duplicating 8 bp at each end (TSD)."],
-  ["OFF — no functional IcaC: the polymer can't be exported.","No PNAG on the surface → smooth cells drift free; the biofilm falls apart."],
-  ["JUMP OUT — precise excision removes IS256 together with the duplicated 8-bp","TSD copies, restoring <tspan font-style='italic'>icaC</tspan> exactly. PIA/PNAG⁺ and biofilm return — phase variation."]
+  ["<b>ON</b> — intact <i>icaADBC</i> operon: IcaA·D builds the GlcNAc chain from UDP-GlcNAc,","the chain threads through IcaC; IcaB deacetylates it outside → PNAG coat → biofilm on devices."],
+  ["<b>JUMP IN</b> — transposase tnp256 cuts IS256 (~1.3 kb) out of its old site;","cut-and-paste integration lands in the <i>icaC</i> hot spot, duplicating 8 bp at each end (TSD)."],
+  ["<b>OFF</b> — no functional IcaC: the polymer can't be exported.","No PNAG on the surface → smooth cells drift free; the biofilm falls apart."],
+  ["<b>JUMP OUT</b> — precise excision removes IS256 together with the duplicated 8-bp","TSD copies, restoring <i>icaC</i> exactly. PIA/PNAG⁺ and biofilm return — phase variation."]
 ];
 
 /* ---------- helpers ---------- */
@@ -515,8 +517,8 @@ function render(t){
   setOp($("plankLblG"), ch===2 ? seg(t,22.4,23.6) : (ch===3 && t<33.4)? clamp((33.8-t)/0.8,0,1) : 0);
 
   /* caption */
-  const cap = $("capText"), ck = ch+"|"+CAPTIONS[ch][0].length;
-  if(cap.dataset.k!==ck){ cap.dataset.k=ck; cap.innerHTML = CAPTIONS[ch][0]+`<tspan x="376" dy="20">${CAPTIONS[ch][1]}</tspan>`; }
+  const cap = $("capPill"), ck = ch+"|"+CAPTIONS[ch][0].length;
+  if(cap.dataset.k!==ck){ cap.dataset.k=ck; cap.innerHTML = CAPTIONS[ch][0]+"<br>"+CAPTIONS[ch][1]; }
   setOp($("titleG"), .98);
 
   S.t=t; S.chapter=ch;
