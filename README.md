@@ -91,7 +91,6 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
 | `_capture.mjs` | MP4 frame-capture harness (Playwright, drives `window.__IS256.render`) — see "Rendering the MP4" |
 | `_shots.cjs`, `_selftest.cjs` | Playwright QA harnesses (responsive screenshots — extra timestamps as CLI args; self-test run) — not needed to view the animation |
 | `_syntax.cjs` | Parse-only check of the inline `<script>` (`node _syntax.cjs`) |
-| `HANDOFF.md` | Session handoff doc: design coordinates, verification order, biology fact sheet |
 
 ## Biology notes & references
 
