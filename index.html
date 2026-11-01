@@ -20,7 +20,9 @@
   .dot{ width:13px; height:13px; border-radius:50%; background:#c7d4ea; border:none; cursor:pointer; padding:0; transition:.2s; box-shadow:none; min-height:0; }
   .dot.active{ background:#f59e0b; transform:scale(1.28); }
   #speedWrap{ display:flex; align-items:center; gap:7px; color:#475569; font-size:13px; font-weight:600; }
+  #scrubWrap{ display:flex; align-items:center; gap:7px; color:#475569; font-size:13px; font-weight:600; }
   input[type=range]{ -webkit-appearance:none; appearance:none; width:92px; height:5px; border-radius:3px; background:#c7d4ea; outline:none; }
+  #scrub{ width:min(38vw,260px); }
   input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:#f59e0b; cursor:pointer; border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); }
   input[type=range]::-moz-range-thumb{ width:16px; height:16px; border-radius:50%; background:#f59e0b; cursor:pointer; border:2.5px solid #fff; box-shadow:0 1px 4px rgba(0,0,0,.3); }
   #prog{ position:fixed; left:0; right:0; bottom:0; height:4px; background:#dbe6f5; z-index:6; }
@@ -266,7 +268,7 @@
   <button id="playBtn" type="button">⏸ Pause</button>
   <div id="dots"></div>
   <div id="speedWrap"><span>Speed</span><input id="spd" type="range" min="0.5" max="2" step="0.1" value="1"/><span id="spdVal">1×</span></div>
-  <button id="resetBtn" type="button">↺ Restart</button>
+  <div id="scrubWrap"><input id="scrub" type="range" min="0" max="36" step="0.01" value="0" aria-label="Scrub the timeline to any point in the 36-second loop"/><span id="tVal">0.0s</span></div>
   <button id="sndBtn" type="button" title="Sound off — tap the canvas to enable, click here to toggle">🔇</button>
 </div>
 <div id="prog"><div id="progBar"></div></div>
@@ -589,14 +591,20 @@ const playBtn=$("playBtn"), dotsG=$("dots");
 for(let i=0;i<4;i++){ const d=document.createElement("button"); d.className="dot"; d.type="button";
   d.addEventListener("click",e=>{ e.stopPropagation(); seek(CH[i]+0.01); }); dotsG.appendChild(d); }
 
-function seek(t){ if(seekT!=null) return; render(t); last=null; syncUI(t); }
+function seek(t){ if(seekT!=null) return; curT=clamp(t,0,D-0.001); render(curT); last=null; syncUI(curT); }
 function syncUI(t){
   const ch = t<9?0 : t<18?1 : t<27?2 : 3;
   [...dotsG.children].forEach((d,i)=>d.classList.toggle("active",i===ch));
   $("progBar").style.width=(t/D*100).toFixed(2)+"%";
+  if(!scrubbing) scrub.value = t.toFixed(2);
+  tVal.textContent = t.toFixed(1)+"s";
 }
 playBtn.addEventListener("click",e=>{ e.stopPropagation(); playing=!playing; playBtn.textContent=playing?"⏸ Pause":"▶ Play"; last=null; });
-$("resetBtn").addEventListener("click",e=>{ e.stopPropagation(); seek(0); if(!playing){playing=true;playBtn.textContent="⏸ Pause";} });
+const scrub=$("scrub"), tVal=$("tVal"); let scrubbing=false;
+scrub.max = (D-0.02).toFixed(2);
+scrub.addEventListener("pointerdown",()=>{ scrubbing=true; });
+window.addEventListener("pointerup",()=>{ scrubbing=false; });
+scrub.addEventListener("input",e=>{ e.stopPropagation(); seek(parseFloat(scrub.value)); });
 $("spd").addEventListener("input",()=>{ speed=parseFloat($("spd").value); $("spdVal").textContent=speed.toFixed(1)+"×"; });
 if(!renderMode) $("stage").addEventListener("pointerdown",e=>{ if(e.target.closest("#ui")) return; playing=!playing; playBtn.textContent=playing?"⏸ Pause":"▶ Play"; last=null; });
 
