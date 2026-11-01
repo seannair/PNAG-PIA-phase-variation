@@ -1,0 +1,60 @@
+IS256 × ica locus — phase-variation animation · licensing
+Copyright (c) 2026 Sean P Nair
+
+This project is released under two licences, because the same files hold two
+different kinds of work: a piece of software, and the teaching material it
+draws.
+
+
+SOFTWARE — MIT License          (full text in LICENSE-MIT)
+
+    The HTML, CSS and JavaScript considered as source code: the rendering
+    engine and render(t) state machine, the timeline and easing machinery,
+    the chapter/scrubber transport controls, the five short synthesized
+    audio cues, and the page layout.
+
+    Fork it, adapt it, build your own animations on it, commercially or
+    otherwise. Keep the copyright notice. No attribution beyond that notice
+    is required.
+
+
+CONTENT — Attribution 4.0 International (CC BY 4.0)
+                                (details in LICENSE-CC-BY-4.0)
+
+    The expressive material: the written captions, chapter labels, gene and
+    protein annotations, figure text and study-guide prose — including where
+    that text sits inside the source files; the visual design of the
+    animation and the student guide; and any still image, screen recording,
+    frame grab or other capture of them, including is256_ica_loop.mp4, the
+    screenshots in docs/ and the prose of this README.
+
+    Share it and adapt it, for any purpose including commercially, but give
+    appropriate credit, link to the licence, and say if you changed it.
+
+
+THE SHORT VERSION
+
+    Reusing the machinery needs no credit. Reusing the words or the pictures
+    does. If you are unsure which licence covers a particular use, crediting
+    the author satisfies both.
+
+
+ATTRIBUTION
+
+    A suggested form, for a slide, a handout or a caption:
+
+        "IS256 × ica locus — phase-variation animation" by Sean P Nair, CC BY 4.0
+        (link to wherever you host it)
+
+    If you modified the animation or the guide, please say so, so that any
+    errors you introduce are not attributed to the original.
+
+
+A NOTE ON THE SPLIT
+
+    The boundary is between the program and what the program expresses. Code
+    that draws an operon is software and is MIT. The picture of the operon it
+    produces, and the sentence explaining what IS256 is doing, are content
+    and are CC BY 4.0. In practice: a developer forking the engine is working
+    under MIT; a teacher putting a frame, caption or guide page into a
+    lecture is working under CC BY 4.0.

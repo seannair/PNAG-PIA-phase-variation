@@ -85,6 +85,7 @@ Verify with `ffprobe` (expect 36 s, 1920×1080, 30 fps, 1080 frames) + a full de
 | `index.html` | The animation (self-contained: markup + styles + timeline engine) |
 | `study-guide.html` | Student guide — colour key, chapter walkthrough with figures, self-check questions (open in a browser; prints via its own print stylesheet) |
 | `is256_ica_loop.mp4` | Full 36-s loop rendered at 1920×1080/30 fps |
+| `LICENSE`, `LICENSE-MIT`, `LICENSE-CC-BY-4.0` | Dual licence — MIT for the software, CC BY 4.0 for the content (captions, visual design, captures); see `LICENSE` for the split and suggested attribution |
 | `docs/guide/ica-01…05.png` | Chapter figures used by the student guide (captured from `?t=…&render=1`) |
 | `docs/is256-study-guide.pdf` | Printable PDF of the student guide |
 | `_capture.mjs` | MP4 frame-capture harness (Playwright, drives `window.__IS256.render`) — see "Rendering the MP4" |
